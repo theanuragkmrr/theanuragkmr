@@ -3532,7 +3532,7 @@ LinkedIn: https://linkedin.com/in/ava6411
       }
     }
 
-    let matrixActive = false;
+    let matrixActive = true;
     let matrixInterval = null;
 
     function toggleMatrix() {
@@ -3689,6 +3689,12 @@ LinkedIn: https://linkedin.com/in/ava6411
       updateCphClock();
       setInterval(updateCphClock, 1000);
       setTimeout(() => termInput.focus(), 300);
+
+      document.getElementById('matrixCanvas').style.display = 'block';
+      initMatrixRain();
+      window.addEventListener('resize', () => {
+        if (matrixActive) initMatrixRain();
+      });
 
       document.addEventListener('touchstart', initAudio, { once: true });
       document.addEventListener('click', initAudio, { once: true });
