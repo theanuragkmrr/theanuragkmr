@@ -14,6 +14,10 @@
 
   <!-- Tailwind CSS (2026 design system layer) -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- html2pdf.js: renders the resume DOM straight to a downloadable PDF file,
+       so "Download PDF" doesn't depend on the browser's print dialog. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -1702,21 +1706,136 @@
       gap: 8px;
     }
 
+    /*
+      The resume preview always renders as a formal white/black/blue document,
+      independent of whichever site theme (emerald/matrix/dracula/...) is active —
+      it's scoped with its own --r-* variables instead of the site's --primary etc.,
+      so what's downloaded never depends on which terminal theme was selected.
+    */
     .resume-paper-body {
-      padding: 30px 38px;
+      --r-heading: #0f172a;
+      --r-accent: #1d4ed8;
+      --r-text: #1f2937;
+      --r-muted: #4b5563;
+      --r-border: #cbd5e1;
+      background: #ffffff;
+      padding: 34px 42px;
       overflow-y: auto;
-      color: #e6edf3;
-      font-size: 12.5px;
+      color: var(--r-text);
+      font-size: 12px;
       line-height: 1.6;
+      font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+
+    .resume-avatar {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--r-accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 24px;
+      row-gap: 8px;
+      font-size: 11.5px;
+      color: var(--r-muted);
+    }
+
+    @media (max-width: 560px) {
+      .contact-row { grid-template-columns: 1fr; }
+    }
+
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .contact-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: var(--r-accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .resume-competency-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 24px;
+      row-gap: 4px;
+      font-size: 11.5px;
+      color: var(--r-text);
+    }
+
+    @media (max-width: 560px) {
+      .resume-competency-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .resume-bullet-box {
+      border: 1px solid var(--r-border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      margin: 4px 0 10px;
+    }
+
+    .resume-bullet-box ul {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 11.5px;
+      color: var(--r-muted);
+      line-height: 1.55;
+    }
+
+    /*
+      Page-break-avoidance must be unconditional (NOT scoped to @media print):
+      html2pdf.js generates the PDF via html2canvas, which rasterizes the DOM's
+      normal on-screen styles — @media print never applies during that capture.
+      Its `pagebreak: { mode: ['css', ...] }` option looks at these ordinary
+      page-break-inside/break-inside rules to decide where an element may be
+      safely sliced across pages.
+    */
+    .resume-paper-body h1,
+    .resume-paper-body h3 {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+    .resume-job-entry,
+    .resume-edu-entry,
+    .resume-bullet-box {
+      page-break-inside: avoid;
+      break-inside: avoid;
     }
 
     @media print {
+      @page { margin: 0.4in; }
       body * { visibility: hidden; }
       .resume-modal, .resume-modal * { visibility: visible; }
-      .resume-modal { position: absolute; inset: 0; background: #fff; color: #000; }
-      .resume-paper { max-height: none; border: none; box-shadow: none; background: #fff; color: #000; }
+      .resume-modal { position: absolute; inset: 0; background: #fff; }
+      .resume-paper {
+        max-height: none;
+        border: none;
+        box-shadow: none;
+        background: #fff;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
       .resume-paper-header { display: none; }
-      .resume-paper-body { padding: 0; color: #000; }
+      .resume-paper-body { padding: 0; font-size: 11pt; line-height: 1.45; }
     }
   </style>
 </head>
@@ -1935,120 +2054,180 @@
       <div class="resume-paper-header">
         <div style="font-weight:700; color:var(--primary); font-size:13px;">📄 Anurag Kumar — Curriculum Vitae (Printable / PDF)</div>
         <div style="display:flex; gap:8px;">
-          <button class="sysbar-action" onclick="window.print()">🖨️ Print / Save PDF</button>
+          <button class="sysbar-action" onclick="downloadResumePDF(this)">⬇️ Download PDF</button>
           <button class="sysbar-action" onclick="closeResumeModal()">✕ Close</button>
         </div>
       </div>
       <div class="resume-paper-body" id="resumePaperBody">
-        <div style="border-bottom:2px solid var(--border); padding-bottom:14px; margin-bottom:16px;">
-          <h1 style="font-size:24px; color:var(--primary); margin-bottom:4px;">ANURAG KUMAR</h1>
-          <div style="font-size:13px; color:var(--accent-blue); font-weight:600; margin-bottom:6px;">
-            Systems Engineer @ Tata Consultancy Services · Full Stack Java & Real-Time Telecom Developer
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:18px; border-bottom:2px solid var(--r-border); padding-bottom:14px; margin-bottom:16px;">
+          <div style="flex:1; min-width:0;">
+            <h1 style="font-size:26px; color:var(--r-heading); margin-bottom:4px;">ANURAG KUMAR</h1>
+            <div style="font-size:13px; color:var(--r-accent); font-weight:600; margin-bottom:4px;">
+              Systems Engineer @ Tata Consultancy Services | Full Stack Java &amp; Real-Time Telecom Developer
+            </div>
+            <div style="font-size:11px; color:var(--r-muted); font-style:italic; margin-bottom:10px;">
+              Targeting: Senior Full Stack Java Developer roles in real-time / telecom systems engineering
+            </div>
+            <div class="contact-row">
+              <span class="contact-item">
+                <span class="contact-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.49a1 1 0 011 1 11.36 11.36 0 00.57 3.57 1 1 0 01-.25 1.01l-2.2 2.21z"/></svg></span>
+                <span>+45 71 40 95 36 (DK)</span>
+              </span>
+              <span class="contact-item">
+                <span class="contact-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M2 4a2 2 0 012-2h16a2 2 0 012 2v16a2 2 0 01-2 2H4a2 2 0 01-2-2V4zm2 .4v.8l8 6 8-6v-.8L12 10 4 4.4z"/></svg></span>
+                <span>srivastavaanurag42@gmail.com</span>
+              </span>
+              <span class="contact-item">
+                <span class="contact-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M4.98 3.5a2.5 2.5 0 11.02 5 2.5 2.5 0 01-.02-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21h-4V9z"/></svg></span>
+                <span><a href="https://linkedin.com/in/ava6411" target="_blank" style="color:var(--r-accent)">linkedin.com/in/ava6411</a></span>
+              </span>
+              <span class="contact-item">
+                <span class="contact-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg></span>
+                <span>Copenhagen, Denmark (Onsite)</span>
+              </span>
+            </div>
           </div>
-          <div style="font-size:11.5px; color:var(--text-muted); display:flex; flex-wrap:wrap; gap:12px;">
-            <span>📍 Copenhagen, Denmark 🇩🇰 (Onsite)</span>
-            <span>✉️ srivastavaanurag42@gmail.com</span>
-            <span>📞 +45 71 40 95 36 (DK) / +91 70786 18533 (IN)</span>
-            <span>🔗 <a href="https://linkedin.com/in/ava6411" target="_blank" style="color:var(--accent-blue)">linkedin.com/in/ava6411</a></span>
-          </div>
+          <div class="resume-avatar" aria-hidden="true">AK</div>
         </div>
 
         <div style="margin-bottom:18px;">
-          <h3 style="color:var(--primary); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--border); padding-bottom:2px;">EXECUTIVE SUMMARY</h3>
-          <p style="font-size:12px; line-height:1.6; color:var(--text);">
+          <h3 style="color:var(--r-heading); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--r-border); padding-bottom:2px;">EXECUTIVE SUMMARY</h3>
+          <p style="font-size:12px; line-height:1.6; color:var(--r-text); text-align:justify;">
             Full Stack Java Developer with 4+ years across Jaguar Land Rover, Verizon, and now TDC Brands in Copenhagen. Most of my recent work has been on a browser-based WebRTC softphone for TDC Brands — call signaling, audio/video controls, and integration with Cisco BroadWorks. Comfortable across the stack: Java and Spring Boot on the backend, React and TypeScript on the frontend, with enough Kafka and Elasticsearch experience to wire up event pipelines when a project needs one. Currently the only developer from my team working directly with TDC Brands' engineers in Copenhagen.
           </p>
         </div>
 
         <div style="margin-bottom:18px;">
-          <h3 style="color:var(--primary); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--border); padding-bottom:2px;">CORE SKILLS</h3>
-          <div style="font-size:11.5px; line-height:1.8;">
-            <div><b>Backend:</b> Java 17, Spring Boot, Spring Data JPA, Spring Security, REST Microservices, JSch (SSH Automation), Lombok, Maven</div>
-            <div><b>Frontend:</b> React 18, TypeScript, JavaScript, Material UI, React Query, Zustand, Redux, WebSocket</div>
-            <div><b>Telecom & Real-Time:</b> Client-Side WebRTC Softphone, End-to-End Signaling Flow, SIP/VoIP Protocols, Cisco BroadWorks, Janus WebRTC Gateway Integration, BroadSoft XSI/OCI, SIPp</div>
-            <div><b>Data & Messaging (Java Integration):</b> Apache Kafka (Event Publishing via KafkaTemplate), Elasticsearch (Query Builders & Data Extraction in Java), MySQL, PostgreSQL, Oracle, MongoDB</div>
-            <div><b>DevOps & Automation:</b> Ansible, GitLab CI, Jenkins, Docker, Linux, Bash Scripting</div>
-            <div><b>AI Tooling:</b> Claude Code, Cursor, GitHub Copilot, Prompt & Context Engineering</div>
+          <h3 style="color:var(--r-heading); font-size:14px; margin-bottom:8px; border-bottom:1px solid var(--r-border); padding-bottom:2px;">CORE COMPETENCIES</h3>
+          <div class="resume-competency-grid">
+            <div>Full Stack Java Development</div>
+            <div>Spring Boot &amp; REST Microservices</div>
+            <div>WebRTC &amp; Real-Time Signaling</div>
+            <div>SIP / VoIP &amp; Cisco BroadWorks</div>
+            <div>React 18 &amp; TypeScript</div>
+            <div>Apache Kafka &amp; Elasticsearch</div>
+            <div>SQL &amp; NoSQL Databases</div>
+            <div>Test Automation (SIPp, JUnit)</div>
+            <div>CI/CD &amp; Ansible Automation</div>
+            <div>Production Deployment &amp; Release Support</div>
+            <div>Team Collaboration &amp; Support</div>
           </div>
         </div>
 
         <div style="margin-bottom:18px;">
-          <h3 style="color:var(--primary); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--border); padding-bottom:2px;">PROFESSIONAL EXPERIENCE</h3>
+          <h3 style="color:var(--r-heading); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--r-border); padding-bottom:2px;">WORK EXPERIENCE</h3>
 
-          <div style="margin-bottom:12px;">
-            <div style="display:flex; justify-content:space-between; font-weight:700; color:var(--text);">
-              <span>Tata Consultancy Services — Systems Engineer (Client: TDC Brands)</span>
-              <span style="color:var(--accent-yellow)">May 2025 – Present</span>
+          <div class="resume-job-entry" style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-weight:700; color:var(--r-heading);">Full Stack Developer (Client: TDC Brands)</span>
+              <span style="color:var(--r-accent); font-weight:600; font-size:11.5px;">May 2025 – Present</span>
             </div>
-            <div style="color:var(--accent-blue); font-size:11.5px; margin-bottom:4px;">Full Stack Developer (Onsite in Copenhagen, Denmark 🇩🇰)</div>
-            <ul style="padding-left:16px; font-size:11.5px; color:var(--text-muted); line-height:1.5;">
-              <li>Built a browser-based softphone from scratch with React and the Janus WebRTC gateway, wiring up call signaling with Cisco BroadWorks so calls can be placed and received without any desktop client.</li>
-              <li>Added the call controls the client asked for — 3-way conferencing, hold/mute, and both attended and blind transfer — after working through BroadWorks' signaling documentation to get the edge cases right.</li>
-              <li>Wrote the batch-planning logic for a node upgrade portal: sequencing upgrades across server clusters, locking nodes mid-upgrade, and rolling back automatically when a step fails.</li>
-              <li>Built a small Java test harness that places scheduled calls against the live system, logs results to Kafka, and pushes them into Elasticsearch so quality issues get flagged before customers notice.</li>
-            </ul>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Tata Consultancy Services</span>
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Copenhagen, Denmark</span>
+            </div>
+            <div class="resume-bullet-box">
+              <ul>
+                <li>Built a browser-based softphone from scratch with React and the Janus WebRTC gateway, wiring up call signaling with Cisco BroadWorks so calls can be placed and received without any desktop client.</li>
+                <li>Added the call controls the client asked for — 3-way conferencing, hold/mute, and both attended and blind transfer — after working through BroadWorks' signaling documentation to get the edge cases right.</li>
+                <li>Wrote the batch-planning logic for a node upgrade portal: sequencing upgrades across server clusters, locking nodes mid-upgrade, and rolling back automatically when a step fails.</li>
+                <li>Built a small Java test harness that places scheduled calls against the live system, logs results to Kafka, and pushes them into Elasticsearch so quality issues get flagged before customers notice.</li>
+                <li>Sole developer from the TCS team working onsite directly with TDC Brands' engineers in Copenhagen, translating client requirements straight into shipped features without a relay layer.</li>
+              </ul>
+            </div>
           </div>
 
-          <div style="margin-bottom:12px;">
-            <div style="display:flex; justify-content:space-between; font-weight:700; color:var(--text);">
-              <span>Tata Consultancy Services — Full Stack Java Developer (Client: TDC Brands)</span>
-              <span style="color:var(--accent-yellow)">Feb 2025 – May 2025</span>
+          <div class="resume-job-entry" style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-weight:700; color:var(--r-heading);">Full Stack Java Developer (Client: TDC Brands)</span>
+              <span style="color:var(--r-accent); font-weight:600; font-size:11.5px;">Feb 2025 – May 2025</span>
             </div>
-            <div style="color:var(--accent-blue); font-size:11.5px; margin-bottom:4px;">Remote (India → Denmark)</div>
-            <ul style="padding-left:16px; font-size:11.5px; color:var(--text-muted); line-height:1.5;">
-              <li>Wrote SIPp test scenarios to check subscriber state against the BroadSoft OCI proxy, which caught a few configuration drift issues before they reached production.</li>
-              <li>Put together automated test coverage for feature access codes, the voice portal, and voicemail — areas that had mostly been tested by hand before.</li>
-              <li>Handled routine cluster maintenance with Python scripts and Ansible playbooks instead of manual SSH work.</li>
-            </ul>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Tata Consultancy Services</span>
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Remote (India → Denmark)</span>
+            </div>
+            <div class="resume-bullet-box">
+              <ul>
+                <li>Authored SIPp test scenarios to validate subscriber state against the BroadSoft OCI proxy, catching configuration drift issues before they reached production.</li>
+                <li>Extended automated test coverage to feature access codes, the voice portal, and voicemail — areas that had mostly been tested by hand before.</li>
+                <li>Automated routine cluster maintenance with Python scripts and Ansible playbooks, replacing manual SSH work.</li>
+              </ul>
+            </div>
           </div>
 
-          <div style="margin-bottom:12px;">
-            <div style="display:flex; justify-content:space-between; font-weight:700; color:var(--text);">
-              <span>Tata Consultancy Services — Assistant Systems Engineer (Client: TDC Brands)</span>
-              <span style="color:var(--accent-yellow)">Jun 2024 – Feb 2025</span>
+          <div class="resume-job-entry" style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-weight:700; color:var(--r-heading);">Assistant Systems Engineer (Client: TDC Brands)</span>
+              <span style="color:var(--r-accent); font-weight:600; font-size:11.5px;">Jun 2024 – Feb 2025</span>
             </div>
-            <div style="color:var(--accent-blue); font-size:11.5px; margin-bottom:4px;">Hybrid (India)</div>
-            <ul style="padding-left:16px; font-size:11.5px; color:var(--text-muted); line-height:1.5;">
-              <li>Built backend modules for a portal that tracks telephony nodes through their lifecycle, including audit trails and email alerts when something needed attention.</li>
-              <li>Added remote SSH execution using JSch, with Spring Retry and locking so two people couldn't run conflicting jobs on the same node at the same time.</li>
-              <li>Converted several portal modules from plain JavaScript to TypeScript and moved data-fetching to React Query, which cut down on stale-data bugs in the UI.</li>
-            </ul>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Tata Consultancy Services</span>
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Hybrid, India</span>
+            </div>
+            <div class="resume-bullet-box">
+              <ul>
+                <li>Built backend modules for a portal that tracks telephony nodes through their lifecycle, including audit trails and email alerts when something needed attention.</li>
+                <li>Added remote SSH execution using JSch, with Spring Retry and locking so two people couldn't run conflicting jobs on the same node at the same time.</li>
+                <li>Converted several portal modules from plain JavaScript to TypeScript and moved data-fetching to React Query, which cut down on stale-data bugs in the UI.</li>
+              </ul>
+            </div>
           </div>
 
-          <div style="margin-bottom:12px;">
-            <div style="display:flex; justify-content:space-between; font-weight:700; color:var(--text);">
-              <span>Tata Consultancy Services — Systems Engineer (Client: Verizon)</span>
-              <span style="color:var(--accent-yellow)">Feb 2023 – Jun 2024</span>
+          <div class="resume-job-entry" style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-weight:700; color:var(--r-heading);">Java Developer (Client: Verizon)</span>
+              <span style="color:var(--r-accent); font-weight:600; font-size:11.5px;">Feb 2023 – Jun 2024</span>
             </div>
-            <div style="color:var(--accent-blue); font-size:11.5px; margin-bottom:4px;">Java Developer (Noida, India)</div>
-            <ul style="padding-left:16px; font-size:11.5px; color:var(--text-muted); line-height:1.5;">
-              <li>Wrote backend microservices and REST APIs in Spring Boot for provisioning telecom customer accounts.</li>
-              <li>Was the main developer on a project moving customer records off MongoDB and onto Oracle — planned the schema, wrote the migration scripts, and validated record counts before and after each batch.</li>
-              <li>Went through the slowest queries in the system and re-indexed the tables behind them, bringing some reports that used to take minutes down to seconds.</li>
-            </ul>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Tata Consultancy Services</span>
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Noida, India</span>
+            </div>
+            <div class="resume-bullet-box">
+              <ul>
+                <li>Wrote backend microservices and REST APIs in Spring Boot for provisioning telecom customer accounts.</li>
+                <li>Supported a customer-records migration from MongoDB to Oracle — wrote the migration scripts and core application code, and helped validate record counts and support production deployments for each batch.</li>
+                <li>Went through the slowest queries in the system and re-indexed the tables behind them, bringing some reports that used to take minutes down to seconds.</li>
+              </ul>
+            </div>
           </div>
 
-          <div style="margin-bottom:12px;">
-            <div style="display:flex; justify-content:space-between; font-weight:700; color:var(--text);">
-              <span>Tata Consultancy Services — Graduate Trainee (Client: Jaguar Land Rover (JLR))</span>
-              <span style="color:var(--accent-yellow)">Feb 2022 – Feb 2023</span>
+          <div class="resume-job-entry" style="margin-bottom:0;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-weight:700; color:var(--r-heading);">Graduate Trainee (Client: Jaguar Land Rover)</span>
+              <span style="color:var(--r-accent); font-weight:600; font-size:11.5px;">Feb 2022 – Feb 2023</span>
             </div>
-            <div style="color:var(--accent-blue); font-size:11.5px; margin-bottom:4px;">Cybersecurity Support Team (Noida, India)</div>
-            <ul style="padding-left:16px; font-size:11.5px; color:var(--text-muted); line-height:1.5;">
-              <li>First role after training — supported Identity and Access Management (IAM) operations for JLR's internal systems.</li>
-              <li>Worked hands-on with Cisco ISE for network access control and policy enforcement, handling day-to-day access requests and support tickets.</li>
-              <li>Picked up the basics of enterprise identity and network security operations before moving into full-stack development.</li>
-            </ul>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Tata Consultancy Services</span>
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Noida, India</span>
+            </div>
+            <div class="resume-bullet-box">
+              <ul>
+                <li>First role after training — supported Identity and Access Management (IAM) operations for JLR's internal systems.</li>
+                <li>Worked hands-on with Cisco ISE for network access control and policy enforcement, handling day-to-day access requests and support tickets.</li>
+                <li>Picked up the basics of enterprise identity and network security operations before moving into full-stack development.</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div style="margin-bottom:14px;">
-          <h3 style="color:var(--primary); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--border); padding-bottom:2px;">EDUCATION & CERTIFICATIONS</h3>
+        <div class="resume-edu-entry" style="margin-bottom:14px;">
+          <h3 style="color:var(--r-heading); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--r-border); padding-bottom:2px;">EDUCATIONAL QUALIFICATIONS</h3>
           <div style="font-size:11.5px; line-height:1.6;">
-            <div><b>Master of Computer Applications (MCA)</b> — SRM University (2023–2025, Grade: A+)</div>
-            <div><b>Bachelor of Computer Applications (BCA)</b> — Bareilly College (2018–2021, Grade: A)</div>
-            <div><b>Certifications:</b> SAFe for Teams 6.0 · Cisco Cybersecurity Essentials (Credly verified)</div>
+            <div><b>Master of Computer Applications (MCA)</b> — 2025 | SRM University | Grade: A+ / 4.0</div>
+            <div><b>Bachelor of Computer Applications (BCA)</b> — 2021 | Bareilly College | Grade: A / 4.0</div>
           </div>
+        </div>
+
+        <div class="resume-edu-entry" style="margin-bottom:14px;">
+          <h3 style="color:var(--r-heading); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--r-border); padding-bottom:2px;">TRAINING AND CERTIFICATIONS</h3>
+          <div style="font-size:11.5px; line-height:1.6;">
+            <div><b>SAFe for Teams 6.0</b></div>
+            <div><b>Cisco Cybersecurity Essentials</b> — Credly verified</div>
+          </div>
+        </div>
+
+        <div style="font-size:11px; color:var(--r-muted);">
+          <b style="color:var(--r-text);">REFERENCES:</b> Available upon request.
         </div>
       </div>
     </div>
@@ -3698,6 +3877,31 @@ LinkedIn: https://linkedin.com/in/ava6411
 
     function closeResumeModal() {
       document.getElementById('resumeModal').style.display = 'none';
+    }
+
+    // Renders the resume DOM (always the fixed white/black/blue formal layout,
+    // regardless of the site's active theme) straight into a downloaded PDF file.
+    function downloadResumePDF(btn) {
+      const el = document.getElementById('resumePaperBody');
+      const originalLabel = btn ? btn.innerHTML : null;
+      if (btn) { btn.innerHTML = '⏳ Preparing PDF…'; btn.disabled = true; }
+
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: 'Anurag_Kumar_Resume.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'] }
+      };
+
+      html2pdf().set(opt).from(el).save().then(() => {
+        if (btn) { btn.innerHTML = originalLabel; btn.disabled = false; }
+      }).catch((err) => {
+        console.error('Resume PDF export failed, falling back to print dialog.', err);
+        if (btn) { btn.innerHTML = originalLabel; btn.disabled = false; }
+        window.print();
+      });
     }
 
     function updateCphClock() {
