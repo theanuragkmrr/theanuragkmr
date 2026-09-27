@@ -1956,7 +1956,7 @@
         <div style="margin-bottom:18px;">
           <h3 style="color:var(--primary); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--border); padding-bottom:2px;">EXECUTIVE SUMMARY</h3>
           <p style="font-size:12px; line-height:1.6; color:var(--text);">
-            Full Stack Java Developer with 4+ years of experience architecting enterprise-scale telecom and real-time communication systems for clients across Europe, North America, and the automotive sector. Specialized in Java 17, Spring Boot microservices, and client-side WebRTC softphone engineering, with hands-on expertise in SIP/VoIP signaling, Kafka event streaming, and Elasticsearch analytics. Currently delivering mission-critical telephony automation onsite for a Tier-1 Nordic telecom operator in Copenhagen, Denmark. Known for shipping zero-downtime, zero-data-loss systems and bridging cross-border engineering teams.
+            Full Stack Java Developer with 4+ years building backend systems and client-facing tools for telecom and automotive clients in India and, since last year, onsite in Denmark. Most of my recent work has been on a browser-based WebRTC softphone for a Nordic telecom operator — call signaling, audio/video controls, and integration with Cisco BroadWorks. Comfortable across the stack: Java and Spring Boot on the backend, React and TypeScript on the frontend, with enough Kafka and Elasticsearch experience to wire up event pipelines when a project needs one. Currently the only developer from my team working directly with the client's engineers in Copenhagen.
           </p>
         </div>
 
@@ -1982,10 +1982,10 @@
             </div>
             <div style="color:var(--accent-blue); font-size:11.5px; margin-bottom:4px;">Full Stack Developer (Onsite in Copenhagen, Denmark 🇩🇰)</div>
             <ul style="padding-left:16px; font-size:11.5px; color:var(--text-muted); line-height:1.5;">
-              <li>Engineered browser-based client-side WebRTC softphone application with real-time audio/video controls integrated with Janus Gateway and Cisco BroadWorks SBC signaling.</li>
-              <li>Delivered full client-side call control features: 3-way conference calling, hold/unhold, mute, blind & attended call transfer.</li>
-              <li>Contributed to network node automation portal: automated node upgrade/downgrade planning, Cisco binary download pipeline with MD5 checksums, and audit logging.</li>
-              <li>Engineered synthetic telephony testing robots: placed automated test calls, published results to Kafka topics from Java, and indexed and queried telemetry in Elasticsearch.</li>
+              <li>Built a browser-based softphone from scratch with React and the Janus WebRTC gateway, wiring up call signaling with Cisco BroadWorks so calls can be placed and received without any desktop client.</li>
+              <li>Added the call controls the client asked for — 3-way conferencing, hold/mute, and both attended and blind transfer — after working through BroadWorks' signaling documentation to get the edge cases right.</li>
+              <li>Wrote the batch-planning logic for a node upgrade portal: sequencing upgrades across server clusters, locking nodes mid-upgrade, and rolling back automatically when a step fails.</li>
+              <li>Built a small Java test harness that places scheduled calls against the live system, logs results to Kafka, and pushes them into Elasticsearch so quality issues get flagged before customers notice.</li>
             </ul>
           </div>
 
@@ -1996,9 +1996,9 @@
             </div>
             <div style="color:var(--accent-blue); font-size:11.5px; margin-bottom:4px;">Remote (India → Denmark)</div>
             <ul style="padding-left:16px; font-size:11.5px; color:var(--text-muted); line-height:1.5;">
-              <li>Developed telephony monitoring services using SIPp scenarios and BroadSoft OCI proxy subscriber state verification.</li>
-              <li>Generated automated test suites covering feature access codes, Voice Portal, voicemail, and QoS validation.</li>
-              <li>Authored Python automation scripts and Ansible playbooks for operational cluster maintenance tasks.</li>
+              <li>Wrote SIPp test scenarios to check subscriber state against the BroadSoft OCI proxy, which caught a few configuration drift issues before they reached production.</li>
+              <li>Put together automated test coverage for feature access codes, the voice portal, and voicemail — areas that had mostly been tested by hand before.</li>
+              <li>Handled routine cluster maintenance with Python scripts and Ansible playbooks instead of manual SSH work.</li>
             </ul>
           </div>
 
@@ -2009,9 +2009,9 @@
             </div>
             <div style="color:var(--accent-blue); font-size:11.5px; margin-bottom:4px;">Hybrid (India)</div>
             <ul style="padding-left:16px; font-size:11.5px; color:var(--text-muted); line-height:1.5;">
-              <li>Engineered core portal backend modules for telephony node lifecycle management, audit trails, and automated email alerts.</li>
-              <li>Integrated remote SSH execution (JSch) backed by Spring Retry and distributed concurrency locks.</li>
-              <li>Migrated portal modules from JavaScript to typed React + TypeScript with React Query for improved performance.</li>
+              <li>Built backend modules for a portal that tracks telephony nodes through their lifecycle, including audit trails and email alerts when something needed attention.</li>
+              <li>Added remote SSH execution using JSch, with Spring Retry and locking so two people couldn't run conflicting jobs on the same node at the same time.</li>
+              <li>Converted several portal modules from plain JavaScript to TypeScript and moved data-fetching to React Query, which cut down on stale-data bugs in the UI.</li>
             </ul>
           </div>
 
@@ -2022,9 +2022,9 @@
             </div>
             <div style="color:var(--accent-blue); font-size:11.5px; margin-bottom:4px;">Java Developer (Noida, India)</div>
             <ul style="padding-left:16px; font-size:11.5px; color:var(--text-muted); line-height:1.5;">
-              <li>Built scalable backend microservices and REST controllers using Java Spring Boot for enterprise telecom account provisioning.</li>
-              <li>Led a complete MongoDB-to-Oracle relational database migration with zero data loss across live production environments.</li>
-              <li>Tuned complex SQL queries and re-indexed large tables, cutting latency on critical query paths.</li>
+              <li>Wrote backend microservices and REST APIs in Spring Boot for provisioning telecom customer accounts.</li>
+              <li>Was the main developer on a project moving customer records off MongoDB and onto Oracle — planned the schema, wrote the migration scripts, and validated record counts before and after each batch.</li>
+              <li>Went through the slowest queries in the system and re-indexed the tables behind them, bringing some reports that used to take minutes down to seconds.</li>
             </ul>
           </div>
 
@@ -2035,8 +2035,8 @@
             </div>
             <div style="color:var(--accent-blue); font-size:11.5px; margin-bottom:4px;">Developer (Noida, India)</div>
             <ul style="padding-left:16px; font-size:11.5px; color:var(--text-muted); line-height:1.5;">
-              <li>Developed internal tooling features across the full SDLC in an Agile sprint cadence, using Spring Boot & React.</li>
-              <li>Built automated batch ETL jobs processing vehicle diagnostic telemetry datasets.</li>
+              <li>First project after training — built features for an internal tool used by the client's engineers, working in two-week sprints with Spring Boot and React.</li>
+              <li>Wrote batch jobs to clean and reshape vehicle diagnostic data coming in from the field before it landed in reporting tables.</li>
             </ul>
           </div>
         </div>
@@ -2254,7 +2254,7 @@
               <div class="t-key">LinkedIn:</div>    <div class="t-val"><a href="https://linkedin.com/in/ava6411" target="_blank">linkedin.com/in/ava6411 ↗</a></div>
             </div>
             <div style="font-size:12px; color:var(--text); line-height:1.7; margin-top:8px;">
-              Architecting resilient Java 17 backend systems and modern React/TypeScript frontends for real-time telecom platforms. Known for shipping zero-downtime, zero-data-loss systems — from client-side WebRTC softphones with full signaling flow ownership to Kafka event pipelines and Elasticsearch-driven analytics in Java.
+              Mostly a Java/Spring Boot backend guy who ended up owning a full WebRTC softphone front to back — signaling, call state, the works. Also comfortable wiring up Kafka pipelines and Elasticsearch queries from Java when a project needs them.
             </div>
           `;
 
@@ -2425,13 +2425,13 @@
                   <span class="p-badge-client">Nordic Telecom Enterprise</span>
                 </div>
                 <div class="p-desc">
-                  A high-performance browser softphone application engineered with React 18, TypeScript, and Janus Gateway integration, backed by complete end-to-end signaling flow knowledge.
+                  A softphone that runs entirely in the browser — no desktop app, no plugin. Built with React and TypeScript, talking to Janus Gateway on one side and Cisco BroadWorks on the other.
                 </div>
                 <div class="p-bullets">
-                  <div class="p-bullet"><b>Client-Side Architecture:</b> Engineered the complete softphone UI, audio device management, and real-time state machine in React & TypeScript.</div>
-                  <div class="p-bullet"><b>End-to-End Signaling Flow:</b> Integrated client signaling via WebSocket with Janus WebRTC Gateway and Cisco BroadWorks SBC (REGISTER, INVITE, ACK, BYE).</div>
-                  <div class="p-bullet"><b>Full Call Controls:</b> Delivered conference calling, hold/unhold, mute/unmute, attended call transfer, and blind transfer.</div>
-                  <div class="p-bullet"><b>Live WebSocket State:</b> Synchronized real-time call states and network quality telemetry for operating engineers.</div>
+                  <div class="p-bullet"><b>UI & call state:</b> Built the interface, audio device selection, and the state machine tracking call status (idle, ringing, connected, ended) in React and TypeScript.</div>
+                  <div class="p-bullet"><b>Signaling:</b> Hooked up SIP signaling over WebSocket to Janus and BroadWorks — the standard REGISTER/INVITE/ACK/BYE flow, plus handling calls that drop mid-negotiation.</div>
+                  <div class="p-bullet"><b>Call controls:</b> Added the features the client asked for — 3-way conferencing, hold, mute, and both attended and blind transfer.</div>
+                  <div class="p-bullet"><b>Live state over WebSocket:</b> Pushed real-time call state and basic network quality numbers so the ops team can see what's happening without pulling logs.</div>
                 </div>
                 <div class="p-tags">
                   <span class="p-tag">React 18</span>
@@ -2457,13 +2457,13 @@
                   <span class="p-badge-client">Nordic Telecom Enterprise</span>
                 </div>
                 <div class="p-desc">
-                  Enterprise self-service platform replacing manual node operations with automated, traceable execution workflows.
+                  An internal tool the ops team uses to upgrade and manage telephony nodes without SSHing into servers by hand.
                 </div>
                 <div class="p-bullets">
-                  <div class="p-bullet"><b>Upgrade Engine:</b> Automated batch planning, sequential execution across server clusters, node lockouts, and rollback triggers.</div>
-                  <div class="p-bullet"><b>Cisco Binary Pipeline:</b> Built automated Cisco API integration with token auth, software discovery, and streamed downloads with MD5 checksum verification.</div>
-                  <div class="p-bullet"><b>Audit Trail & History:</b> Designed comprehensive audit logging data models, Excel export reports, and automated execution alerts.</div>
-                  <div class="p-bullet"><b>Frontend Modernization:</b> Migrated legacy JavaScript UI to modern TypeScript + React Query for faster rendering and type safety.</div>
+                  <div class="p-bullet"><b>Upgrade engine:</b> Plans upgrade batches, runs them one cluster at a time, locks nodes mid-upgrade, and rolls back automatically if a step fails.</div>
+                  <div class="p-bullet"><b>Cisco binary pipeline:</b> Pulls firmware from Cisco's API with token auth, checks what's available, and verifies every download against its MD5 checksum before it's used.</div>
+                  <div class="p-bullet"><b>Audit trail:</b> Logs every action for traceability, plus Excel exports and email alerts the team asked for after an incident review.</div>
+                  <div class="p-bullet"><b>Frontend rewrite:</b> Moved the older JavaScript UI to TypeScript and switched data-fetching to React Query, which cut down on a lot of stale-data bugs.</div>
                 </div>
                 <div class="p-tags">
                   <span class="p-tag">Java 17</span>
@@ -2488,13 +2488,13 @@
                   <span class="p-badge-client">Nordic Telecom Enterprise</span>
                 </div>
                 <div class="p-desc">
-                  Automated synthetic testing service placing scheduled test calls, streaming metrics to Kafka from Java, and querying Elasticsearch for root cause analytics.
+                  A scheduled job that places real test calls against the live system so quality issues get caught before customers notice.
                 </div>
                 <div class="p-bullets">
-                  <div class="p-bullet"><b>Synthetic Call Execution:</b> Automated test call runs verifying voice services, feature codes, and subscriber states via BroadSoft OCI.</div>
-                  <div class="p-bullet"><b>Kafka Event Publishing in Java:</b> Utilized Spring KafkaTemplate to publish structured telemetry and call outcome events to Kafka topics.</div>
-                  <div class="p-bullet"><b>Elasticsearch Java Integration:</b> Crafted Java search queries and Elasticsearch query builders to aggregate error patterns and analyze call failure root causes.</div>
-                  <div class="p-bullet"><b>Automated Alerts:</b> Configured automated email notifications on QoS metric degradation.</div>
+                  <div class="p-bullet"><b>Test calls:</b> Runs calls on a schedule to check voice service, feature codes, and subscriber state through the BroadSoft OCI interface.</div>
+                  <div class="p-bullet"><b>Kafka:</b> Publishes call results and telemetry using Spring's KafkaTemplate so other services can react to failures quickly.</div>
+                  <div class="p-bullet"><b>Elasticsearch:</b> Wrote the queries that group failures by pattern, which made recurring issues much faster to spot than reading logs one by one.</div>
+                  <div class="p-bullet"><b>Alerts:</b> Sends email alerts when call quality metrics drop below a set threshold.</div>
                 </div>
                 <div class="p-tags">
                   <span class="p-tag">Java 17</span>
@@ -2518,11 +2518,11 @@
                   <span class="p-badge-client">Major US Telecom Client</span>
                 </div>
                 <div class="p-desc">
-                  Zero-data-loss database migration of high-volume customer telecom records from unstructured NoSQL to relational schema.
+                  Migrated customer telecom records off MongoDB and onto Oracle without losing or duplicating a single record — verified every batch against the source counts.
                 </div>
                 <div class="p-bullets">
-                  <div class="p-bullet">Engineered multi-threaded extraction & transformation pipelines with strict data verification checkpoints.</div>
-                  <div class="p-bullet">Designed target normalized Oracle relational tables with compound indexes to preserve sub-millisecond query SLAs.</div>
+                  <div class="p-bullet">Wrote multi-threaded extraction and transformation jobs with a verification checkpoint after every batch.</div>
+                  <div class="p-bullet">Designed the normalized Oracle schema and added compound indexes so query performance didn't regress after the move.</div>
                 </div>
                 <div class="p-tags">
                   <span class="p-tag">Java</span>
