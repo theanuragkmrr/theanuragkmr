@@ -1,0 +1,3913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Anurag Kumar — Systems Engineer & Full Stack Telecom Developer (Copenhagen, DK)</title>
+  <meta name="description" content="Interactive 2026 Developer Workstation & Terminal Portfolio of Anurag Kumar. Systems Engineer at TCS onsite in Copenhagen, Denmark. Java 17, Spring Boot, WebRTC, SIP/VoIP, Cisco BroadWorks, Kafka & Elasticsearch Java Integration.">
+  <meta name="theme-color" content="#0a0e14">
+
+  <!-- Google Font: JetBrains Mono, Fira Code, Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS (2026 design system layer) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- html2pdf.js: renders the resume DOM straight to a downloadable PDF file,
+       so "Download PDF" doesn't depend on the browser's print dialog. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+            display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+          },
+          borderRadius: {
+            xl2: '18px',
+            xl3: '26px',
+          },
+          keyframes: {
+            drift: {
+              '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)' },
+              '50%': { transform: 'translate3d(2%, -3%, 0) scale(1.08)' },
+            },
+            floaty: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-6px)' },
+            },
+            blink: {
+              '0%, 100%': { opacity: 1 },
+              '50%': { opacity: 0 },
+            },
+          },
+          animation: {
+            drift: 'drift 16s ease-in-out infinite',
+            'drift-slow': 'drift 24s ease-in-out infinite reverse',
+            floaty: 'floaty 4s ease-in-out infinite',
+            blink: 'blink 1s step-start infinite',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ═════════════════════════════════════════════════════════════════════
+       THEME VARIABLES & DESIGN SYSTEM (2026 GLASS-TERMINAL WORKSTATION)
+       ═════════════════════════════════════════════════════════════════════ */
+    :root {
+      /* Default Theme: Cyberpunk Emerald */
+      --bg: #090d12;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #111a24 0%, #070a0e 100%);
+      --surface: #0e151ecc;
+      --surface-solid: #0e151e;
+      --surface-elevated: #151f2ccc;
+      --surface-elevated-solid: #151f2c;
+      --surface-border: #1f2e4299;
+      --border: #24354b;
+      --border-highlight: #00ff66;
+      --primary: #00ff66;
+      --primary-dim: #7ee787;
+      --primary-glow: rgba(0, 255, 102, 0.35);
+      --primary-subtle: rgba(0, 255, 102, 0.08);
+      --text: #e6edf3;
+      --text-muted: #8b9bb0;
+      --text-dim: #55667d;
+      --accent-blue: #38bdf8;
+      --accent-cyan: #06b6d4;
+      --accent-yellow: #fbbf24;
+      --accent-red: #f43f5e;
+      --accent-purple: #c084fc;
+      --accent-orange: #fb923c;
+      --term-font: 'JetBrains Mono', 'Fira Code', monospace;
+      --ui-font: 'Space Grotesk', system-ui, sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --glass-border: rgba(255, 255, 255, 0.07);
+      --shadow-window: 0 30px 90px -24px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.04) inset, 0 0 70px -10px var(--primary-glow);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      color-scheme: dark;
+    }
+
+    /* ── Alternate Themes ── */
+    body[data-theme="matrix"] {
+      --bg: #030804;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #061508 0%, #020503 100%);
+      --surface: #071208cc;
+      --surface-solid: #071208;
+      --surface-elevated: #0d1e0fcc;
+      --surface-elevated-solid: #0d1e0f;
+      --surface-border: #14331899;
+      --border: #1b4421;
+      --border-highlight: #00ff41;
+      --primary: #00ff41;
+      --primary-dim: #52e46b;
+      --primary-glow: rgba(0, 255, 65, 0.45);
+      --primary-subtle: rgba(0, 255, 65, 0.1);
+      --text: #d8ffd9;
+      --text-muted: #74a877;
+      --accent-blue: #2de2e6;
+      --accent-yellow: #fbee35;
+      --accent-red: #ff3864;
+    }
+
+    body[data-theme="nordic"] {
+      --bg: #0c1219;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #131d2a 0%, #0a0e14 100%);
+      --surface: #121a24cc;
+      --surface-solid: #121a24;
+      --surface-elevated: #1a2533cc;
+      --surface-elevated-solid: #1a2533;
+      --surface-border: #28374a99;
+      --border: #33465e;
+      --border-highlight: #38bdf8;
+      --primary: #38bdf8;
+      --primary-dim: #7dd3fc;
+      --primary-glow: rgba(56, 189, 248, 0.35);
+      --primary-subtle: rgba(56, 189, 248, 0.1);
+      --text: #f0f6fc;
+      --text-muted: #94a3b8;
+      --accent-blue: #60a5fa;
+      --accent-red: #f43f5e;
+      --accent-yellow: #fcd34d;
+    }
+
+    body[data-theme="dracula"] {
+      --bg: #181924;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #232536 0%, #151620 100%);
+      --surface: #21222ccc;
+      --surface-solid: #21222c;
+      --surface-elevated: #282a36cc;
+      --surface-elevated-solid: #282a36;
+      --surface-border: #44475a99;
+      --border: #6272a4;
+      --border-highlight: #bd93f9;
+      --primary: #bd93f9;
+      --primary-dim: #d8b4fe;
+      --primary-glow: rgba(189, 147, 249, 0.4);
+      --primary-subtle: rgba(189, 147, 249, 0.1);
+      --text: #f8f8f2;
+      --text-muted: #9799b0;
+      --accent-blue: #8be9fd;
+      --accent-yellow: #f1fa8c;
+      --accent-red: #ff5555;
+      --accent-cyan: #50fa7b;
+    }
+
+    body[data-theme="amber"] {
+      --bg: #0e0a02;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #1b1304 0%, #090601 100%);
+      --surface: #161005cc;
+      --surface-solid: #161005;
+      --surface-elevated: #211909cc;
+      --surface-elevated-solid: #211909;
+      --surface-border: #38290f99;
+      --border: #4f3a16;
+      --border-highlight: #ffb000;
+      --primary: #ffb000;
+      --primary-dim: #ffd269;
+      --primary-glow: rgba(255, 176, 0, 0.45);
+      --primary-subtle: rgba(255, 176, 0, 0.12);
+      --text: #ffeec7;
+      --text-muted: #bfa571;
+      --accent-blue: #ffc94d;
+      --accent-yellow: #ffe484;
+      --accent-red: #ff6b4a;
+    }
+
+    /* ═════════════════════════════════════════════════════════════════════
+       BASE RESETS
+       ═════════════════════════════════════════════════════════════════════ */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html {
+      overflow-x: hidden;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--bg);
+      background-image: var(--bg-gradient);
+      color: var(--text);
+      font-family: var(--term-font);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    ::selection {
+      background: var(--primary-glow);
+      color: #06120b;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 34px 34px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 90%);
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 90%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Ambient 2026 "aurora mesh" background layer */
+    .aurora-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .aurora-blob {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(90px);
+      opacity: 0.28;
+      mix-blend-mode: screen;
+      will-change: transform;
+    }
+    .aurora-1 {
+      width: 46vw; height: 46vw; max-width: 640px; max-height: 640px;
+      top: -14%; left: -10%;
+      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+      animation: drift 16s ease-in-out infinite;
+    }
+    .aurora-2 {
+      width: 38vw; height: 38vw; max-width: 560px; max-height: 560px;
+      top: -8%; right: -12%;
+      background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
+      animation: drift 24s ease-in-out infinite reverse;
+    }
+    .aurora-3 {
+      width: 34vw; height: 34vw; max-width: 480px; max-height: 480px;
+      bottom: -16%; left: 30%;
+      background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
+      opacity: 0.18;
+      animation: drift 20s ease-in-out infinite;
+    }
+
+    .crt-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
+      background-size: 100% 4px;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    body.crt-enabled .crt-overlay {
+      display: block;
+    }
+
+    body.crt-enabled {
+      text-shadow: 0 0 2px var(--primary-glow);
+    }
+
+    #matrixCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.22;
+      display: none;
+    }
+
+    /* Glassy scrollbars, global */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary-dim); }
+
+    /* ═════════════════════════════════════════════════════════════════════
+       TOP SYSTEM STATUS BAR
+       ═════════════════════════════════════════════════════════════════════ */
+    .top-sysbar {
+      position: sticky;
+      top: 0;
+      min-height: 48px;
+      background: linear-gradient(to bottom, rgba(14,21,30,0.72), rgba(14,21,30,0.5));
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 18px;
+      z-index: 100;
+      font-size: 11.5px;
+      user-select: none;
+      gap: 12px;
+      row-gap: 8px;
+    }
+
+    .sysbar-left {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      row-gap: 8px;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .os-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--ui-font);
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      white-space: nowrap;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary), 0 0 2px var(--primary);
+      animation: pulse 2s infinite ease-in-out;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.6; }
+    }
+
+    .location-tag {
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .location-tag b {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .view-modes {
+      display: flex;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .mode-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 5px 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.25s var(--ease);
+    }
+
+    .mode-btn:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .mode-btn.active {
+      color: #06120b;
+      background: var(--primary);
+      font-weight: 700;
+      box-shadow: 0 0 16px var(--primary-glow);
+    }
+
+    .sysbar-right {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      row-gap: 8px;
+      gap: 10px;
+    }
+
+    .sys-pill {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: var(--text-muted);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .sys-pill span.val {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .sysbar-action {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      padding: 5px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s var(--ease);
+    }
+
+    .sysbar-action:hover {
+      border-color: var(--primary-dim);
+      color: var(--primary);
+      background: var(--primary-subtle);
+      transform: translateY(-1px);
+    }
+
+    .tour-cta-btn {
+      background: linear-gradient(135deg, rgba(0, 255, 102, 0.18), rgba(56, 189, 248, 0.18));
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-weight: 700;
+      padding: 5px 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 11px;
+      animation: gentle-glow 2.5s infinite alternate;
+      white-space: nowrap;
+      transition: transform 0.2s var(--ease);
+    }
+    .tour-cta-btn:hover { transform: translateY(-1px) scale(1.03); }
+
+    @media (max-width: 760px) {
+      .top-sysbar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 14px;
+      }
+      .sysbar-left, .sysbar-right {
+        justify-content: center;
+      }
+      .sys-pill.weather-pill {
+        display: none;
+      }
+    }
+
+    @keyframes gentle-glow {
+      from { box-shadow: 0 0 4px var(--primary-glow); }
+      to { box-shadow: 0 0 18px var(--primary-glow); }
+    }
+
+    /* ═════════════════════════════════════════════════════════════════════
+       MAIN VIEWPORT & TERMINAL WINDOW
+       ═════════════════════════════════════════════════════════════════════ */
+    .app-viewport {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+      min-height: calc(100vh - 48px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .terminal-window {
+      background: var(--surface);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-window);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: box-shadow 0.4s var(--ease);
+      position: relative;
+    }
+
+    .term-titlebar {
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      gap: 8px;
+    }
+
+    .mac-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mac-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      transition: filter 0.15s ease, transform 0.15s ease;
+    }
+    .mac-dot:hover { filter: brightness(1.2); transform: scale(1.1); }
+
+    .dot-close { background: #ff5f56; }
+    .dot-min   { background: #ffbd2e; }
+    .dot-max   { background: #27c93f; }
+
+    .term-title-center {
+      color: var(--text-muted);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .term-title-center span.session-name {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .term-titlebar-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .term-tool-btn {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
+    }
+
+    .term-tool-btn:hover {
+      color: var(--primary);
+      border-color: var(--primary-dim);
+      background: var(--primary-subtle);
+      transform: translateY(-1px);
+    }
+
+    .cmd-chips-bar {
+      background: rgba(255,255,255,0.015);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .cmd-chips-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chips-label {
+      color: var(--text-dim);
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+
+    .chip-btn {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 11.5px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s var(--ease);
+    }
+
+    .chip-btn:hover {
+      border-color: var(--primary-dim);
+      color: var(--primary);
+      background: var(--primary-subtle);
+      transform: translateY(-1px);
+    }
+
+    .chip-btn.active {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-subtle);
+      font-weight: 600;
+      box-shadow: 0 0 0 1px var(--primary-subtle), 0 0 14px -2px var(--primary-glow);
+    }
+
+    .chip-badge-hot {
+      font-size: 9.5px;
+      padding: 1px 5px;
+      border-radius: 999px;
+      background: rgba(244, 63, 94, 0.2);
+      color: var(--accent-red);
+      font-weight: 700;
+    }
+
+    .term-content {
+      padding: 22px 26px;
+      min-height: 480px;
+      max-height: 720px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    .term-log-entry {
+      margin-bottom: 24px;
+      animation: fadeIn 0.35s var(--ease);
+    }
+
+    .term-log-output {
+      margin-top: 2px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .term-prompt-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 2px;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .p-user { color: var(--accent-cyan); font-weight: 700; }
+    .p-at   { color: var(--text-dim); }
+    .p-host { color: var(--accent-blue); font-weight: 700; }
+    .p-col  { color: var(--text-dim); }
+    .p-path { color: var(--primary); font-weight: 600; }
+    .p-sign { color: var(--text-muted); margin: 0 6px; }
+    .p-cmd  { color: var(--text); font-weight: 500; }
+
+    .ascii-hero {
+      color: var(--primary);
+      font-family: var(--term-font);
+      font-size: 10px;
+      line-height: 1.15;
+      white-space: pre;
+      overflow-x: auto;
+      margin-bottom: 14px;
+      font-weight: 700;
+      text-shadow: 0 0 16px var(--primary-glow);
+    }
+
+    @media (max-width: 600px) {
+      .ascii-hero { font-size: 7px; }
+    }
+
+    .hero-meta-box {
+      background: linear-gradient(135deg, var(--primary-subtle), transparent);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 40px -18px rgba(0,0,0,0.6);
+    }
+
+    .hero-tagline {
+      font-family: var(--ui-font);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .hero-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .hero-pill {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--glass-border);
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--text);
+      transition: all 0.2s var(--ease);
+    }
+    .hero-pill:hover {
+      border-color: var(--primary-dim);
+      transform: translateY(-1px);
+    }
+    .hero-pill b {
+      color: var(--primary);
+    }
+
+    .term-table {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 7px 18px;
+      margin: 12px 0;
+      background: rgba(255,255,255,0.02);
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--glass-border);
+      border-left: 2px solid var(--primary);
+    }
+
+    @media (max-width: 580px) {
+      .term-table { grid-template-columns: 1fr; gap: 4px; }
+    }
+
+    .t-key { color: var(--primary-dim); font-weight: 600; }
+    .t-val { color: var(--text); word-break: break-word; }
+    .t-val a { color: var(--accent-blue); text-decoration: none; }
+    .t-val a:hover { text-decoration: underline; color: var(--primary); }
+
+    .skill-cat {
+      margin-bottom: 18px;
+    }
+    .skill-cat-title {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 12.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .skill-chips-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .tech-badge {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s var(--ease);
+    }
+    .tech-badge:hover {
+      border-color: var(--primary);
+      background: var(--primary-subtle);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+    .tech-badge.featured {
+      background: var(--primary-subtle);
+      border-color: rgba(0, 255, 102, 0.35);
+      color: var(--primary);
+      font-weight: 600;
+      box-shadow: 0 0 14px -4px var(--primary-glow);
+    }
+
+    .timeline-node {
+      border-left: 2px solid var(--primary-subtle);
+      padding-left: 20px;
+      margin-bottom: 26px;
+      position: relative;
+    }
+    .timeline-node::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--surface-solid);
+      border: 2px solid var(--primary);
+    }
+    .timeline-node.current::before {
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .tl-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .tl-role {
+      color: var(--primary);
+      font-size: 13.5px;
+      font-weight: 700;
+      font-family: var(--ui-font);
+    }
+    .tl-period {
+      color: var(--accent-yellow);
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(251, 191, 36, 0.1);
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(251, 191, 36, 0.25);
+    }
+    .tl-company {
+      color: var(--accent-blue);
+      font-weight: 600;
+      font-size: 12.5px;
+      margin-bottom: 4px;
+    }
+    .tl-stack {
+      color: var(--text-muted);
+      font-size: 11px;
+      margin-bottom: 9px;
+      font-style: italic;
+    }
+    .tl-point {
+      color: var(--text);
+      font-size: 12px;
+      margin-bottom: 5px;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.65;
+    }
+    .tl-point::before {
+      content: '▹';
+      color: var(--primary-dim);
+      position: absolute;
+      left: 0;
+    }
+    .tl-point b {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin: 14px 0;
+    }
+
+    .project-card {
+      background: linear-gradient(160deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      position: relative;
+      transition: all 0.35s var(--ease);
+    }
+    .project-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 20px 50px -20px rgba(0,0,0,0.6), 0 0 24px -6px var(--primary-subtle);
+      transform: translateY(-3px);
+    }
+    .p-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 9px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .p-title {
+      color: var(--primary);
+      font-size: 14.5px;
+      font-weight: 700;
+      font-family: var(--ui-font);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .p-badge-client {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent-blue);
+      font-size: 10.5px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .p-desc {
+      color: var(--text);
+      font-size: 12.5px;
+      margin-bottom: 12px;
+      line-height: 1.65;
+    }
+    .p-bullets {
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .p-bullet {
+      color: var(--text-muted);
+      font-size: 11.5px;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.65;
+    }
+    .p-bullet::before {
+      content: '▪';
+      color: var(--primary);
+      position: absolute;
+      left: 0;
+    }
+    .p-bullet b {
+      color: var(--text);
+    }
+    .p-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .p-tag {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--accent-blue);
+      font-size: 10.5px;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+    .p-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--glass-border);
+    }
+    .btn-proj-action {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--primary);
+      font-family: inherit;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s var(--ease);
+    }
+    .btn-proj-action:hover {
+      background: var(--primary);
+      color: #06120b;
+      font-weight: 600;
+      transform: translateY(-1px);
+    }
+
+    .term-input-line {
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid var(--glass-border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      position: relative;
+    }
+
+    .term-input-field {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--primary);
+      font-family: var(--term-font);
+      font-size: 13.5px;
+      font-weight: 500;
+      flex: 1;
+      margin-left: 6px;
+      caret-color: var(--primary);
+    }
+
+    .term-input-field::placeholder {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    .term-input-hint {
+      color: var(--text-dim);
+      font-size: 11px;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kbd-tag {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-size: 10px;
+    }
+
+    /* ═════════════════════════════════════════════════════════════════════
+       TELECOM WORKSTATION & CLIENT-SIDE SOFTPHONE SIMULATOR
+       ═════════════════════════════════════════════════════════════════════ */
+    .telecom-station {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      margin: 16px 0;
+      box-shadow: 0 25px 70px -30px rgba(0,0,0,0.7);
+    }
+
+    .softphone-container {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      background: rgba(0,0,0,0.15);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+
+    @media (max-width: 860px) {
+      .softphone-container { grid-template-columns: 1fr; }
+    }
+
+    .phone-handset {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .phone-screen {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .phone-status-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      color: var(--text-dim);
+    }
+
+    .phone-status-row .reg-status {
+      color: var(--primary);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .phone-number-display {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 1px;
+      min-height: 28px;
+      word-break: break-all;
+    }
+
+    .phone-call-timer {
+      font-size: 11px;
+      color: var(--accent-yellow);
+      font-weight: 600;
+      display: none;
+    }
+
+    .dialpad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+    }
+
+    .dial-key {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      font-family: inherit;
+      border-radius: 14px;
+      height: 50px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s var(--ease);
+    }
+
+    .dial-key:hover {
+      background: var(--primary-subtle);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .dial-key:active {
+      transform: scale(0.94);
+      background: var(--primary);
+      color: #06120b;
+    }
+
+    .dial-key .num {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .dial-key .sub {
+      font-size: 8.5px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+    .phone-actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 4px;
+    }
+
+    .btn-call {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      border: none;
+      padding: 11px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s var(--ease);
+    }
+
+    .btn-call:hover {
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .btn-hangup {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: #fff;
+      border: none;
+      padding: 11px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      opacity: 0.55;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-hangup.active {
+      opacity: 1;
+      pointer-events: auto;
+      animation: pulse 1s infinite alternate;
+    }
+
+    .speed-dial-chips {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .speed-chip {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s var(--ease);
+    }
+
+    .speed-chip:hover {
+      border-color: var(--accent-blue);
+      color: var(--text);
+      background: rgba(56, 189, 248, 0.06);
+      transform: translateX(2px);
+    }
+
+    .speed-chip b {
+      color: var(--accent-blue);
+    }
+
+    .phone-telemetry {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .telemetry-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      flex: 1;
+    }
+
+    .telemetry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--primary);
+      font-weight: 700;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 8px;
+    }
+
+    #audioWaveCanvas {
+      width: 100%;
+      height: 70px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+    }
+
+    .sip-console {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      height: 160px;
+      overflow-y: auto;
+      font-size: 11px;
+      line-height: 1.5;
+      font-family: var(--term-font);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sip-line {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sip-time { color: var(--text-dim); }
+    .sip-out  { color: var(--accent-cyan); font-weight: 600; }
+    .sip-in   { color: var(--accent-yellow); font-weight: 600; }
+    .sip-err  { color: var(--accent-red); font-weight: 600; }
+    .sip-msg  { color: var(--text); }
+
+    .qos-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 500px) {
+      .qos-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .qos-box {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--glass-border);
+      padding: 7px 8px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+
+    .qos-lbl { font-size: 9.5px; color: var(--text-dim); text-transform: uppercase; }
+    .qos-val { font-size: 12px; font-weight: 700; color: var(--primary); }
+
+    /* ═════════════════════════════════════════════════════════════════════
+       HTOP SYSTEM PROCESS MONITOR
+       ═════════════════════════════════════════════════════════════════════ */
+    .htop-container {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 14px 0;
+      font-size: 11.5px;
+    }
+
+    .htop-gauges {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    @media (max-width: 600px) {
+      .htop-gauges { grid-template-columns: 1fr; }
+    }
+
+    .gauge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .gauge-label {
+      width: 48px;
+      color: var(--accent-blue);
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .gauge-bar-track {
+      flex: 1;
+      height: 12px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gauge-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #10b981 0%, #f59e0b 70%, #ef4444 95%);
+      transition: width 0.8s var(--ease);
+    }
+
+    .gauge-val {
+      width: 45px;
+      text-align: right;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 11px;
+    }
+
+    .htop-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .htop-table th {
+      background: rgba(255,255,255,0.03);
+      color: var(--primary);
+      text-align: left;
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--glass-border);
+      font-weight: 700;
+    }
+
+    .htop-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+
+    .htop-table tr:hover td {
+      background: var(--primary-subtle);
+      color: var(--primary);
+    }
+
+    /* ═════════════════════════════════════════════════════════════════════
+       IDE / WORKSTATION VIEW MODE
+       ═════════════════════════════════════════════════════════════════════ */
+    .ide-workspace {
+      display: none;
+      grid-template-columns: 240px 1fr;
+      gap: 14px;
+      background: var(--surface);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      min-height: 600px;
+      box-shadow: var(--shadow-window);
+    }
+
+    @media (max-width: 768px) {
+      .ide-workspace { grid-template-columns: 1fr; }
+    }
+
+    .ide-sidebar {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ide-tree-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .ide-file-tree {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .tree-folder {
+      color: var(--accent-yellow);
+      font-weight: 600;
+      font-size: 11.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .tree-file {
+      padding-left: 18px;
+      color: var(--text-muted);
+      font-size: 11.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 8px;
+      padding-block: 4px;
+      transition: all 0.15s var(--ease);
+    }
+
+    .tree-file:hover {
+      color: var(--primary);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .tree-file.active {
+      color: var(--primary);
+      background: var(--primary-subtle);
+      font-weight: 600;
+    }
+
+    .ide-main-editor {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .ide-editor-tabs {
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      overflow-x: auto;
+    }
+
+    .editor-tab {
+      padding: 9px 15px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      border-right: 1px solid var(--glass-border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .editor-tab.active {
+      color: var(--primary);
+      background: rgba(0,0,0,0.2);
+      border-top: 2px solid var(--primary);
+      font-weight: 600;
+    }
+
+    .editor-code-container {
+      padding: 18px;
+      overflow-y: auto;
+      font-family: var(--term-font);
+      font-size: 12px;
+      line-height: 1.65;
+      max-height: 520px;
+    }
+
+    .code-line {
+      display: flex;
+      gap: 16px;
+    }
+
+    .line-no {
+      color: var(--text-dim);
+      user-select: none;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    .line-text {
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
+    /* ═════════════════════════════════════════════════════════════════════
+       GUIDED RECRUITER TOUR OVERLAY
+       ═════════════════════════════════════════════════════════════════════ */
+    .tour-banner-modal {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(17, 26, 38, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-md);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 35px var(--primary-glow);
+      padding: 18px 22px;
+      width: 360px;
+      max-width: calc(100vw - 32px);
+      z-index: 1000;
+      animation: slideUp 0.35s var(--ease);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .tour-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tour-text {
+      font-size: 12px;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .tour-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tour-step-indicator {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .tour-nav-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-tour-step {
+      background: var(--primary);
+      color: #06120b;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s var(--ease);
+    }
+    .btn-tour-step:hover { transform: translateY(-1px); }
+
+    .btn-tour-close {
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    /* ═════════════════════════════════════════════════════════════════════
+       PRINTABLE RESUME MODAL
+       ═════════════════════════════════════════════════════════════════════ */
+    .resume-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(14px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .resume-paper {
+      background: rgba(13, 19, 28, 0.92);
+      backdrop-filter: blur(30px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 860px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.85);
+    }
+
+    .resume-paper-header {
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 14px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /*
+      The resume preview always renders as a formal white/black/blue document,
+      independent of whichever site theme (emerald/matrix/dracula/...) is active —
+      it's scoped with its own --r-* variables instead of the site's --primary etc.,
+      so what's downloaded never depends on which terminal theme was selected.
+    */
+    .resume-paper-body {
+      --r-heading: #0f172a;
+      --r-accent: #1d4ed8;
+      --r-text: #1f2937;
+      --r-muted: #4b5563;
+      --r-border: #cbd5e1;
+      background: #ffffff;
+      padding: 34px 42px;
+      overflow-y: auto;
+      color: var(--r-text);
+      font-size: 12px;
+      line-height: 1.6;
+      font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+
+    .resume-avatar {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--r-accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 24px;
+      row-gap: 8px;
+      font-size: 11.5px;
+      color: var(--r-muted);
+    }
+
+    @media (max-width: 560px) {
+      .contact-row { grid-template-columns: 1fr; }
+    }
+
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .contact-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: var(--r-accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .resume-competency-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 24px;
+      row-gap: 4px;
+      font-size: 11.5px;
+      color: var(--r-text);
+    }
+
+    @media (max-width: 560px) {
+      .resume-competency-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .resume-bullet-box {
+      border: 1px solid var(--r-border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      margin: 4px 0 10px;
+    }
+
+    .resume-bullet-box ul {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 11.5px;
+      color: var(--r-muted);
+      line-height: 1.55;
+    }
+
+    /*
+      Page-break-avoidance must be unconditional (NOT scoped to @media print):
+      html2pdf.js generates the PDF via html2canvas, which rasterizes the DOM's
+      normal on-screen styles — @media print never applies during that capture.
+      Its `pagebreak: { mode: ['css', ...] }` option looks at these ordinary
+      page-break-inside/break-inside rules to decide where an element may be
+      safely sliced across pages.
+    */
+    .resume-paper-body h1,
+    .resume-paper-body h3 {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+    .resume-job-entry,
+    .resume-edu-entry,
+    .resume-bullet-box {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    @media print {
+      @page { margin: 0.4in; }
+      body * { visibility: hidden; }
+      .resume-modal, .resume-modal * { visibility: visible; }
+      .resume-modal { position: absolute; inset: 0; background: #fff; }
+      .resume-paper {
+        max-height: none;
+        border: none;
+        box-shadow: none;
+        background: #fff;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+      .resume-paper-header { display: none; }
+      .resume-paper-body { padding: 0; font-size: 11pt; line-height: 1.45; }
+    }
+  </style>
+</head>
+
+<body data-theme="emerald">
+
+  <!-- Ambient Grid, Aurora Mesh & CRT Overlay -->
+  <div class="bg-grid"></div>
+  <div class="aurora-layer" aria-hidden="true">
+    <div class="aurora-blob aurora-1"></div>
+    <div class="aurora-blob aurora-2"></div>
+    <div class="aurora-blob aurora-3"></div>
+  </div>
+  <div class="crt-overlay"></div>
+  <canvas id="matrixCanvas"></canvas>
+
+  <!-- ═════════════════════════════════════════════════════════════════════
+       TOP SYSTEM STATUS BAR
+       ═════════════════════════════════════════════════════════════════════ -->
+  <header class="top-sysbar">
+    <div class="sysbar-left">
+      <div class="os-badge">
+        <div class="pulse-dot"></div>
+        <span>ANURAG-OS v2026.9</span>
+      </div>
+
+      <div class="location-tag">
+        <span>🇩🇰 Copenhagen, DK</span>
+        <span>•</span>
+        <b>TDC Brands Onsite</b>
+      </div>
+
+      <!-- Mode Switcher -->
+      <div class="view-modes">
+        <button class="mode-btn active" id="btnModeTerm" onclick="switchViewMode('terminal')">
+          <span>&gt;_</span> Terminal
+        </button>
+        <button class="mode-btn" id="btnModeIde" onclick="switchViewMode('ide')">
+          <span>⚡</span> IDE Workspace
+        </button>
+      </div>
+    </div>
+
+    <div class="sysbar-right">
+      <div class="sys-pill">
+        <span>TIME:</span>
+        <span class="val" id="cphClock">12:44:09 CEST</span>
+      </div>
+
+      <div class="sys-pill weather-pill">
+        <span>WEATHER:</span>
+        <span class="val">14°C CPH ☁️</span>
+      </div>
+
+      <!-- Sound FX Toggle -->
+      <button class="sysbar-action" id="audioToggleBtn" onclick="toggleAudio()" title="Toggle Keyboard & Terminal Sound FX">
+        <span id="audioIcon">🔇</span> Audio
+      </button>
+
+      <!-- CRT Filter Toggle -->
+      <button class="sysbar-action" id="crtToggleBtn" onclick="toggleCRT()" title="Toggle Retro CRT Scanlines & Phosphor Glow">
+        📺 CRT
+      </button>
+
+      <!-- Theme Switcher -->
+      <select class="sysbar-action" id="themeSelect" onchange="changeTheme(this.value)" style="background:var(--surface); cursor:pointer;">
+        <option value="emerald">Theme: Emerald</option>
+        <option value="matrix">Theme: Matrix</option>
+        <option value="nordic">Theme: Nordic Frost (DK)</option>
+        <option value="dracula">Theme: Dracula</option>
+        <option value="amber">Theme: Amber CRT</option>
+      </select>
+
+      <!-- Recruiter Tour Button -->
+      <button class="tour-cta-btn" onclick="startGuidedTour()">
+        ⚡ Recruiter Tour
+      </button>
+    </div>
+  </header>
+
+  <!-- ═════════════════════════════════════════════════════════════════════
+       MAIN APPLICATION VIEWPORT
+       ═════════════════════════════════════════════ -->
+  <main class="app-viewport">
+
+    <!-- ── TERMINAL VIEW MODE ── -->
+    <div class="terminal-window" id="terminalWindow">
+      
+      <!-- Window Titlebar -->
+      <div class="term-titlebar">
+        <div class="mac-dots">
+          <div class="mac-dot dot-close" onclick="executeCommand('clear')" title="Clear Terminal (Ctrl+L)"></div>
+          <div class="mac-dot dot-min" onclick="executeCommand('help')" title="Show Help"></div>
+          <div class="mac-dot dot-max" onclick="toggleFullscreen()" title="Fullscreen"></div>
+        </div>
+
+        <div class="term-title-center">
+          <span class="session-name">anurag@anurag</span>
+          <span>—</span>
+          <span>zsh / WebRTC Station</span>
+          <span>—</span>
+          <span>128×38</span>
+        </div>
+
+        <div class="term-titlebar-tools">
+          <button class="term-tool-btn" onclick="openResumeModal()">📄 Resume</button>
+          <button class="term-tool-btn" onclick="executeCommand('softphone')">📞 Softphone</button>
+          <button class="term-tool-btn" onclick="executeCommand('clear')">Clear</button>
+        </div>
+      </div>
+
+      <!-- Quick Command Action Chips -->
+      <div class="cmd-chips-bar">
+        <span class="chips-label">Quick Commands:</span>
+        <button class="chip-btn active" onclick="runChipCommand('whoami')">whoami</button>
+        <button class="chip-btn" onclick="runChipCommand('skills')">skills</button>
+        <button class="chip-btn" onclick="runChipCommand('experience')">experience</button>
+        <button class="chip-btn" onclick="runChipCommand('projects')">projects</button>
+        <button class="chip-btn" onclick="runChipCommand('softphone')">
+          <span>📞 softphone.sh</span>
+          <span class="chip-badge-hot">DEMO</span>
+        </button>
+        <button class="chip-btn" onclick="runChipCommand('htop')">📊 htop</button>
+        <button class="chip-btn" onclick="runChipCommand('ask-anurag')">🤖 ask-anurag</button>
+        <button class="chip-btn" onclick="runChipCommand('ai-workflow')">./ai-workflow</button>
+        <button class="chip-btn" onclick="runChipCommand('neofetch')">neofetch</button>
+        <button class="chip-btn" onclick="runChipCommand('matrix')">matrix</button>
+        <button class="chip-btn" onclick="runChipCommand('contact')">contact</button>
+      </div>
+
+      <!-- Terminal Body / Scrollback Buffer -->
+      <div class="term-content" id="termContent">
+        <!-- Dynamically rendered -->
+      </div>
+
+      <!-- Active Command Input Prompt -->
+      <div class="term-input-line" onclick="focusTermInput()">
+        <span class="p-user">anurag</span><span class="p-at">@</span><span class="p-host">anurag</span><span class="p-col">:</span><span class="p-path">~</span><span class="p-sign">$</span>
+        <input
+          id="termInput" 
+          class="term-input-field" 
+          type="text" 
+          autocomplete="off" 
+          autocorrect="off" 
+          autocapitalize="off" 
+          spellcheck="false"
+          placeholder="type a command, e.g. 'help', 'softphone', 'projects', 'ask-anurag'..."
+        >
+        <div class="term-input-hint">
+          <span><span class="kbd-tag">TAB</span> complete</span>
+          <span><span class="kbd-tag">↑/↓</span> history</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── IDE WORKSPACE VIEW MODE ── -->
+    <div class="ide-workspace" id="ideWorkspace">
+      <!-- File Tree Sidebar -->
+      <div class="ide-sidebar">
+        <div class="ide-tree-title">📁 Project Explorer</div>
+        <div class="ide-file-tree">
+          <div class="tree-folder">📂 telecom-copenhagen</div>
+          <div class="tree-file active" onclick="loadIdeFile('webrtc')">📄 WebRTCSoftphoneClient.tsx</div>
+          <div class="tree-file" onclick="loadIdeFile('broadworks')">📄 BroadWorksSyncService.java</div>
+          <div class="tree-file" onclick="loadIdeFile('telecom-robot')">📄 TelephonyQoSRobot.java</div>
+          <div class="tree-file" onclick="loadIdeFile('ansible')">📄 node_upgrade_playbook.yml</div>
+
+          <div class="tree-folder">📂 architecture-specs</div>
+          <div class="tree-file" onclick="loadIdeFile('arch-webrtc')">📐 webrtc-client-flow.md</div>
+          <div class="tree-file" onclick="loadIdeFile('arch-telecom')">📐 java-kafka-elasticsearch.md</div>
+
+          <div class="tree-folder">📂 resume-and-bio</div>
+          <div class="tree-file" onclick="loadIdeFile('bio')">📄 Anurag_Kumar_CV.md</div>
+          <div class="tree-file" onclick="loadIdeFile('skills-json')">📄 skills.json</div>
+        </div>
+      </div>
+
+      <!-- Code & Content Editor -->
+      <div class="ide-main-editor">
+        <div class="ide-editor-tabs" id="editorTabs">
+          <div class="editor-tab active" id="currentEditorTab">📄 WebRTCSoftphoneClient.tsx</div>
+        </div>
+
+        <div class="editor-code-container" id="editorCodeContent">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ═════════════════════════════════════════════════════════════════════
+       GUIDED RECRUITER TOUR OVERLAY POPUP
+       ═════════════════════════════════════════════ -->
+  <div class="tour-banner-modal" id="tourModal">
+    <div class="tour-title">
+      <span id="tourStepTitle">⚡ Recruiter Quick Tour</span>
+      <span class="tour-step-indicator" id="tourProgress">1 / 5</span>
+    </div>
+    <div class="tour-text" id="tourStepText">
+      Welcome to Anurag's 2026 Interactive Portfolio! Explore his enterprise Java 17 systems, client-side WebRTC softphone engineering, and onsite European telecom work in Copenhagen.
+    </div>
+    <div class="tour-controls">
+      <button class="btn-tour-close" onclick="stopGuidedTour()">Exit Tour</button>
+      <div class="tour-nav-btns">
+        <button class="btn-tour-step" id="btnTourNext" onclick="nextTourStep()">Next ➔</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═════════════════════════════════════════════════════════════════════
+       PRINTABLE RESUME MODAL
+       ═════════════════════════════════════════════ -->
+  <div class="resume-modal" id="resumeModal" onclick="closeResumeModal(event)">
+    <div class="resume-paper" onclick="event.stopPropagation()">
+      <div class="resume-paper-header">
+        <div style="font-weight:700; color:var(--primary); font-size:13px;">📄 Anurag Kumar — Curriculum Vitae (Printable / PDF)</div>
+        <div style="display:flex; gap:8px;">
+          <button class="sysbar-action" onclick="downloadResumePDF(this)">⬇️ Download PDF</button>
+          <button class="sysbar-action" onclick="closeResumeModal()">✕ Close</button>
+        </div>
+      </div>
+      <div class="resume-paper-body" id="resumePaperBody">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:18px; border-bottom:2px solid var(--r-border); padding-bottom:14px; margin-bottom:16px;">
+          <div style="flex:1; min-width:0;">
+            <h1 style="font-size:26px; color:var(--r-heading); margin-bottom:4px;">ANURAG KUMAR</h1>
+            <div style="font-size:13px; color:var(--r-accent); font-weight:600; margin-bottom:10px;">
+              Systems Engineer @ Tata Consultancy Services | Full Stack Java Developer
+            </div>
+            <div class="contact-row">
+              <span class="contact-item">
+                <span class="contact-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.49a1 1 0 011 1 11.36 11.36 0 00.57 3.57 1 1 0 01-.25 1.01l-2.2 2.21z"/></svg></span>
+                <span>+45 71 40 95 36 (DK)</span>
+              </span>
+              <span class="contact-item">
+                <span class="contact-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M2 4a2 2 0 012-2h16a2 2 0 012 2v16a2 2 0 01-2 2H4a2 2 0 01-2-2V4zm2 .4v.8l8 6 8-6v-.8L12 10 4 4.4z"/></svg></span>
+                <span>srivastavaanurag42@gmail.com</span>
+              </span>
+              <span class="contact-item">
+                <span class="contact-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M4.98 3.5a2.5 2.5 0 11.02 5 2.5 2.5 0 01-.02-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21h-4V9z"/></svg></span>
+                <span><a href="https://linkedin.com/in/ava6411" target="_blank" style="color:var(--r-accent)">linkedin.com/in/ava6411</a></span>
+              </span>
+              <span class="contact-item">
+                <span class="contact-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg></span>
+                <span>Copenhagen, Denmark (Onsite)</span>
+              </span>
+            </div>
+          </div>
+          <div class="resume-avatar" aria-hidden="true">AK</div>
+        </div>
+
+        <div style="margin-bottom:18px;">
+          <h3 style="color:var(--r-heading); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--r-border); padding-bottom:2px;">EXECUTIVE SUMMARY</h3>
+          <p style="font-size:12px; line-height:1.6; color:var(--r-text); text-align:justify;">
+            Full Stack Java Developer with 4+ years of experience, growing from Graduate Trainee to Full Stack Developer across Jaguar Land Rover, Verizon, and now Tata Consultancy Services (client: TDC Brands, Copenhagen). Built a <b>WebRTC softphone</b> that works right in the browser using Cisco BroadWorks for calling, a <b>one-click node upgrade portal</b> that manages BroadWorks server batches for upgrades, downgrades, and testing, and <b>Telephony QoS Automation Robots</b> that run test calls and send results to Kafka and Elasticsearch. Works across the full stack with Java, Spring Boot, React, and TypeScript. A quick learner who enjoys picking up new tools and finding practical solutions to real problems. Currently the only developer on the team working directly with TDC Brands' engineers onsite in Copenhagen.
+          </p>
+        </div>
+
+        <div style="margin-bottom:18px;">
+          <h3 style="color:var(--r-heading); font-size:14px; margin-bottom:8px; border-bottom:1px solid var(--r-border); padding-bottom:2px;">CORE COMPETENCIES</h3>
+          <div class="resume-competency-grid">
+            <div>Full Stack Java Development</div>
+            <div>Spring Boot &amp; REST Microservices</div>
+            <div>WebRTC &amp; Real-Time Signaling</div>
+            <div>SIP / VoIP &amp; Cisco BroadWorks</div>
+            <div>React 18 &amp; TypeScript</div>
+            <div>Apache Kafka &amp; Elasticsearch</div>
+            <div>SQL &amp; NoSQL Databases</div>
+            <div>Test Automation (SIPp, JUnit)</div>
+            <div>Python Scripting &amp; Automation</div>
+            <div>CI/CD &amp; Ansible Playbooks</div>
+            <div>Production Deployment &amp; Release Support</div>
+            <div>Team Collaboration &amp; Support</div>
+            <div>Quick Learner &amp; Problem Solver</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:18px;">
+          <h3 style="color:var(--r-heading); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--r-border); padding-bottom:2px;">WORK EXPERIENCE</h3>
+
+          <div class="resume-job-entry" style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-weight:700; color:var(--r-heading);">Full Stack Developer (Client: TDC Brands)</span>
+              <span style="color:var(--r-accent); font-weight:600; font-size:11.5px;">Jun 2024 – Present</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2px;">
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Tata Consultancy Services</span>
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Onsite, Copenhagen</span>
+            </div>
+            <div style="font-size:10.5px; color:var(--r-muted); font-style:italic; margin-bottom:4px;">
+              Assistant Systems Engineer → Full Stack Java Developer → Full Stack Developer &nbsp;|&nbsp; Hybrid, India (Jun 2024 – Feb 2025) → Remote, India → Denmark (Feb – May 2025) → Onsite, Copenhagen (May 2025 – Present)
+            </div>
+            <div class="resume-bullet-box">
+              <ul>
+                <li>Build and maintain a <b>WebRTC softphone</b> from scratch using React and TypeScript — including the interface, audio device selection, and a call state machine (idle, ringing, connected, ended) — so users can call through Cisco BroadWorks without a separate desktop app.</li>
+                <li>Wire up SIP signaling over WebSocket to the Janus Gateway and Cisco BroadWorks, handling the standard REGISTER/INVITE/ACK/BYE flow along with calls that drop mid-negotiation.</li>
+                <li>Add call features like 3-way conferencing, hold/mute, and both attended and blind transfer, working through BroadWorks' signaling documentation to handle tricky edge cases.</li>
+                <li>Push live call state and basic network quality numbers over WebSocket so the ops team can see what's happening without pulling logs.</li>
+                <li>Build a <b>one-click node upgrade portal</b> to manage BroadWorks server batches — add hostnames, then create, edit, or delete batches to run software upgrades, downgrades, OS upgrades, localization, sanitization, and on-demand tests across ADP, AS, XSP, MS, NS, NDS, and NFM nodes on a monthly cycle.</li>
+                <li>Download official software binaries (such as R-4 and R-26 releases) from Cisco's BroadWorks site, orchestrate every batch operation through GitLab CI/CD pipelines running Ansible playbooks, and show live logs and batch health status with automated test cases run directly against BroadWorks servers.</li>
+                <li>Build <b>Telephony QoS Automation Robots</b> that run SIPp call scenarios (one test suite per cluster) to check Feature Access Codes and the MCA/Voice Portal service on vXSP, supporting VoLTE QoS monitoring across BroadWorks AS clusters.</li>
+                <li>Query call pass/fail data from Elasticsearch logs and publish results to Kafka, and send alerts by email or SNMP trap — with failure percentage and reason — whenever a service isn't running correctly.</li>
+                <li>Work as the only developer on-site with TDC Brands' team in Copenhagen, turning their requirements directly into finished features.</li>
+                <li>Wrote SIPp test scenarios to check subscriber data against the BroadSoft OCI proxy, catching setup errors before they reached production.</li>
+                <li>Added automated tests for feature access codes, the voice portal, and voicemail, which were only tested by hand before.</li>
+                <li>Automated regular cluster maintenance with Python scripts and Ansible playbooks, so manual SSH work was no longer needed.</li>
+                <li>Built backend features for a portal that tracks telephony nodes, including audit trails and automatic email alerts.</li>
+                <li>Added remote SSH commands using JSch, with Spring Retry and locking so two jobs can't run on the same node at once.</li>
+                <li>Moved parts of the portal from JavaScript to TypeScript and started using React Query for data fetching, which fixed many outdated-data bugs.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="resume-job-entry" style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-weight:700; color:var(--r-heading);">Java Developer (Client: Verizon)</span>
+              <span style="color:var(--r-accent); font-weight:600; font-size:11.5px;">Feb 2023 – Jun 2024</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Tata Consultancy Services</span>
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Noida, India</span>
+            </div>
+            <div class="resume-bullet-box">
+              <ul>
+                <li>Built backend microservices and REST APIs in Spring Boot to set up telecom customer accounts.</li>
+                <li>Helped move customer records from MongoDB to Oracle — wrote migration scripts and core code, checked record counts, and supported production deployments for each batch.</li>
+                <li>Found the slowest queries in the system and re-indexed them, cutting some report times from minutes to seconds.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="resume-job-entry" style="margin-bottom:0;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-weight:700; color:var(--r-heading);">Graduate Trainee (Client: Jaguar Land Rover)</span>
+              <span style="color:var(--r-accent); font-weight:600; font-size:11.5px;">Feb 2022 – Feb 2023</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Tata Consultancy Services</span>
+              <span style="font-weight:600; color:var(--r-text); font-size:11.5px;">Noida, India</span>
+            </div>
+            <div class="resume-bullet-box">
+              <ul>
+                <li>Supported Identity and Access Management (IAM) work for JLR's internal systems — the first role after training.</li>
+                <li>Managed Cisco ISE for network access control, handling daily access requests and support tickets.</li>
+                <li>Learned the basics of enterprise identity and network security before moving into full-stack development.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-edu-entry" style="margin-bottom:14px;">
+          <h3 style="color:var(--r-heading); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--r-border); padding-bottom:2px;">EDUCATIONAL QUALIFICATIONS</h3>
+          <div style="font-size:11.5px; line-height:1.6;">
+            <div><b>Master of Computer Applications (MCA)</b> — 2025 | SRM University | Grade: A+ / 4.0</div>
+            <div><b>Bachelor of Computer Applications (BCA)</b> — 2021 | Bareilly College | Grade: A / 4.0</div>
+          </div>
+        </div>
+
+        <div class="resume-edu-entry" style="margin-bottom:14px;">
+          <h3 style="color:var(--r-heading); font-size:14px; margin-bottom:6px; border-bottom:1px solid var(--r-border); padding-bottom:2px;">TRAINING AND CERTIFICATIONS</h3>
+          <div style="font-size:11.5px; line-height:1.6;">
+            <div><b>SAFe for Teams 6.0</b></div>
+            <div><b>Cisco Cybersecurity Essentials</b> — Credly verified</div>
+          </div>
+        </div>
+
+        <div style="font-size:11px; color:var(--r-muted);">
+          <b style="color:var(--r-text);">REFERENCES:</b> Available upon request.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═════════════════════════════════════════════════════════════════════
+       CORE LOGIC, VIRTUAL FILESYSTEM & AUDIO ENGINE
+       ═════════════════════════════════════════════════════════════════════ -->
+  <script>
+    /* ─────────────────────────────────────────────────────────────────
+       1. SYNTHESIZED WEB AUDIO ENGINE (ZERO EXTERNAL ASSET DEPENDENCIES)
+       ───────────────────────────────────────────────────────────────── */
+    let audioCtx = null;
+    let audioEnabled = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          audioCtx = new AudioContext();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleAudio() {
+      initAudio();
+      audioEnabled = !audioEnabled;
+      const icon = document.getElementById('audioIcon');
+      const btn = document.getElementById('audioToggleBtn');
+      if (audioEnabled) {
+        icon.textContent = '🔊';
+        btn.style.borderColor = 'var(--primary)';
+        btn.style.color = 'var(--primary)';
+        playKeyBeep(880, 0.08, 'sine');
+      } else {
+        icon.textContent = '🔇';
+        btn.style.borderColor = 'var(--surface-border)';
+        btn.style.color = 'var(--text-muted)';
+      }
+    }
+
+    function playKeyClick() {
+      if (!audioEnabled || !audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(140 + Math.random() * 80, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.045);
+      } catch (e) {}
+    }
+
+    function playKeyBeep(freq = 600, duration = 0.08, type = 'sine') {
+      if (!audioEnabled || !audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    const DTMF_FREQS = {
+      '1': [697, 1209], '2': [697, 1336], '3': [697, 1477],
+      '4': [770, 1209], '5': [770, 1336], '6': [770, 1477],
+      '7': [852, 1209], '8': [852, 1336], '9': [852, 1477],
+      '*': [941, 1209], '0': [941, 1336], '#': [941, 1477]
+    };
+
+    function playDtmfTone(char) {
+      if (!audioEnabled || !audioCtx) return;
+      const freqs = DTMF_FREQS[char];
+      if (!freqs) return;
+      try {
+        const now = audioCtx.currentTime;
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc1.frequency.setValueAtTime(freqs[0], now);
+        osc2.frequency.setValueAtTime(freqs[1], now);
+
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + 0.17);
+        osc2.stop(now + 0.17);
+      } catch (e) {}
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       2. VIRTUAL FILESYSTEM & PROFILE DATA
+       ───────────────────────────────────────────────────────────────── */
+    const VIRTUAL_FS = {
+      '~': {
+        type: 'dir',
+        children: {
+          'README.md': { type: 'file', content: `# Anurag Kumar — Systems Engineer & Full Stack Developer\nOnsite in Copenhagen, Denmark 🇩🇰 at TDC Brands.\n4+ years delivering Java 17, Spring Boot, client-side WebRTC softphones, Kafka event publishing & Elasticsearch Java query integration.` },
+          'skills.json': { type: 'file', content: `{\n  "languages": ["Java 17", "TypeScript", "JavaScript", "Python", "SQL", "Bash"],\n  "backend": ["Spring Boot", "Spring Data JPA", "Spring Security", "REST Microservices"],\n  "data_integration": ["Apache Kafka (Java Sending)", "Elasticsearch (Java Querying)", "MySQL", "Oracle DB", "PostgreSQL"],\n  "telecom_realtime": ["WebRTC (Client-Side)", "E2E Signaling Architecture", "SIP/VoIP Flow", "Cisco BroadWorks", "Janus Integration"],\n  "frontend": ["React 18", "TypeScript", "Material UI", "React Query", "WebSocket"],\n  "devops_tools": ["Ansible", "GitLab CI", "Linux", "Docker"]\n}` },
+          'projects': {
+            type: 'dir',
+            children: {
+              'webrtc-softphone.txt': { type: 'file', content: 'WebRTC Client Softphone: Browser-based client application with full audio/video controls, Janus Gateway integration, and E2E SIP signaling knowledge.' },
+              'telecom-automation-portal.txt': { type: 'file', content: 'Telecom Node Automation Platform: Automated batch upgrade/downgrade engine, Cisco binary download pipeline with MD5 checks, and audit logging models.' },
+              'telecom-qos-robots.txt': { type: 'file', content: 'Synthetic Telephony QoS Robots: Automated call test executor, publishing metrics to Kafka from Java and querying Elasticsearch for root cause analytics.' }
+            }
+          },
+          'scripts': {
+            type: 'dir',
+            children: {
+              'softphone.sh': { type: 'file', content: '#!/bin/bash\necho "Initializing WebRTC Client & Signaling Interface..."' },
+              'ai-workflow.sh': { type: 'file', content: '#!/bin/bash\necho "Claude Code + Cursor agentic engineering stack."' }
+            }
+          }
+        }
+      }
+    };
+
+    /* ─────────────────────────────────────────────────────────────────
+       3. COMMAND REGISTRY & INTERPRETER
+       ───────────────────────────────────────────────────────────────── */
+    const COMMAND_LIST = [
+      'whoami', 'skills', 'experience', 'projects', 'softphone', 
+      'htop', 'neofetch', 'ai-workflow', 'ask-anurag', 'matrix', 
+      'contact', 'resume', 'clear', 'help', 'ls', 'cat', 'pwd', 
+      'uname', 'date', 'weather', 'theme', 'sound', 'crt', 'tour'
+    ];
+
+    let cmdHistory = [];
+    let historyIdx = -1;
+
+    function renderBootBanner() {
+      return `
+        <div class="ascii-hero">
+ █████╗ ███╗   ██╗██╗   ██╗██████╗  █████╗  ██████╗     ██╗  ██╗██╗   ██╗███╗   ███╗ █████╗ ██████╗ 
+██╔══██╗████╗  ██║██║   ██║██╔══██╗██╔══██╗██╔════╝     ██║ ██╔╝██║   ██║████╗ ████║██╔══██╗██╔══██╗
+███████║██╔██╗ ██║██║   ██║██████╔╝███████║██║  ███╗    █████╔╝ ██║   ██║██╔████╔██║███████║██████╔╝
+██╔══██║██║╚██╗██║██║   ██║██╔══██╗██╔══██║██║   ██║    ██╔═██╗ ██║   ██║██║╚██╔╝██║██╔══██║██╔══██╗
+██║  ██║██║ ╚████║╚██████╔╝██║  ██║██║  ██║╚██████╔╝    ██║  ██╗╚██████╔╝██║ ╚═╝ ██║██║  ██║██║  ██║
+╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝</div>
+
+        <div class="hero-meta-box">
+          <div class="hero-tagline">
+            <span>● SYSTEMS ENGINEER @ TCS</span>
+            <span>·</span>
+            <span>COPENHAGEN, DENMARK 🇩🇰</span>
+          </div>
+          <div class="hero-sub">
+            Full Stack Java Developer delivering enterprise telephony platforms, client-side WebRTC softphones & automated voice quality systems.
+          </div>
+          <div class="hero-highlights">
+            <span class="hero-pill">Stack: <b>Java 17 · Spring Boot · React 18 · TypeScript</b></span>
+            <span class="hero-pill">Telecom: <b>WebRTC (Client-Side) · SIP Flow · BroadWorks · QoS</b></span>
+            <span class="hero-pill">Data in Java: <b>Kafka Sending · Elasticsearch Querying</b></span>
+            <span class="hero-pill">Status: <b>Onsite Copenhagen (Open to Global Opportunities)</b></span>
+          </div>
+        </div>
+
+        <div style="color:var(--text-muted); font-size:12px; margin-bottom:14px;">
+          Type <span style="color:var(--primary); font-weight:600;">help</span> for all commands or click the chips above to navigate. Try <span style="color:var(--primary); font-weight:600;">softphone</span> to test the interactive client softphone simulator!
+        </div>
+      `;
+    }
+
+    function getCommandOutput(cmdStr) {
+      const parts = cmdStr.trim().split(/\s+/);
+      const main = parts[0].toLowerCase();
+      const arg = parts.slice(1).join(' ');
+
+      switch (main) {
+        case 'whoami':
+        case 'about':
+        case 'bio':
+          return `
+            <div class="term-table">
+              <div class="t-key">Name:</div>        <div class="t-val"><b>Anurag Kumar</b></div>
+              <div class="t-key">Role:</div>        <div class="t-val">Systems Engineer @ Tata Consultancy Services</div>
+              <div class="t-key">Current Client:</div><div class="t-val"><b style="color:var(--primary)">TDC Brands (Copenhagen, Denmark 🇩🇰)</b> — Onsite since May 2025</div>
+              <div class="t-key">Experience:</div>  <div class="t-val">4+ Years · Full Stack Java & Real-Time Telecom Developer</div>
+              <div class="t-key">Past Clients:</div><div class="t-val">Verizon · Jaguar Land Rover (JLR)</div>
+              <div class="t-key">Key Domains:</div> <div class="t-val">Enterprise Telecom, Client-Side WebRTC Softphones, Telephony Automation, Voice QoS Monitoring</div>
+              <div class="t-key">Education:</div>   <div class="t-val">MCA (SRM University, 2025, Grade: A+) · BCA (Bareilly College, Grade: A)</div>
+              <div class="t-key">Contact:</div>     <div class="t-val">srivastavaanurag42@gmail.com · +45 71 40 95 36 (DK) · +91 70786 18533 (IN)</div>
+              <div class="t-key">LinkedIn:</div>    <div class="t-val"><a href="https://linkedin.com/in/ava6411" target="_blank">linkedin.com/in/ava6411 ↗</a></div>
+            </div>
+            <div style="font-size:12px; color:var(--text); line-height:1.7; margin-top:8px;">
+              Mostly a Java/Spring Boot backend guy who ended up owning a full WebRTC softphone front to back — signaling, call state, the works. Also comfortable wiring up Kafka pipelines and Elasticsearch queries from Java when a project needs them.
+            </div>
+          `;
+
+        case 'skills':
+        case 'tech':
+        case 'stack':
+          return `
+            <div class="skill-cat">
+              <div class="skill-cat-title">// Core Languages</div>
+              <div class="skill-chips-group">
+                <span class="tech-badge featured">Java 17 LTS</span>
+                <span class="tech-badge featured">TypeScript</span>
+                <span class="tech-badge">JavaScript (ES6+)</span>
+                <span class="tech-badge">Python 3</span>
+                <span class="tech-badge">SQL (Oracle / Postgres / MySQL)</span>
+                <span class="tech-badge">Bash / Zsh</span>
+                <span class="tech-badge">YAML</span>
+              </div>
+            </div>
+
+            <div class="skill-cat">
+              <div class="skill-cat-title">// Backend & Microservices</div>
+              <div class="skill-chips-group">
+                <span class="tech-badge featured">Spring Boot 3</span>
+                <span class="tech-badge featured">Spring Data JPA / Hibernate</span>
+                <span class="tech-badge">Spring Security</span>
+                <span class="tech-badge">Spring Retry</span>
+                <span class="tech-badge">RESTful APIs & OpenAPI</span>
+                <span class="tech-badge">JSch (SSH Automation)</span>
+                <span class="tech-badge">Maven</span>
+              </div>
+            </div>
+
+            <div class="skill-cat">
+              <div class="skill-cat-title">// Telecom & Real-Time Communications</div>
+              <div class="skill-chips-group">
+                <span class="tech-badge featured">Client-Side WebRTC Softphone</span>
+                <span class="tech-badge featured">E2E SIP Signaling Flow</span>
+                <span class="tech-badge featured">Cisco BroadWorks</span>
+                <span class="tech-badge">Janus WebRTC Gateway Integration</span>
+                <span class="tech-badge">BroadSoft XSI & OCI</span>
+                <span class="tech-badge">SIPp Testing Tool</span>
+                <span class="tech-badge">WebSocket Call State</span>
+              </div>
+            </div>
+
+            <div class="skill-cat">
+              <div class="skill-cat-title">// Frontend & UI Engineering</div>
+              <div class="skill-chips-group">
+                <span class="tech-badge featured">React 18</span>
+                <span class="tech-badge featured">TypeScript</span>
+                <span class="tech-badge">React Query (TanStack)</span>
+                <span class="tech-badge">Material UI</span>
+                <span class="tech-badge">Redux Toolkit / Zustand</span>
+                <span class="tech-badge">Axios</span>
+                <span class="tech-badge">i18next</span>
+              </div>
+            </div>
+
+            <div class="skill-cat">
+              <div class="skill-cat-title">// Data Streams & Databases (Java Integration)</div>
+              <div class="skill-chips-group">
+                <span class="tech-badge featured">Apache Kafka (Sending Events via Java KafkaTemplate)</span>
+                <span class="tech-badge featured">Elasticsearch (Querying & Search via Java Query Builders)</span>
+                <span class="tech-badge">MySQL</span>
+                <span class="tech-badge">Oracle DB</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">MongoDB</span>
+              </div>
+            </div>
+
+            <div class="skill-cat">
+              <div class="skill-cat-title">// DevOps, Automation & AI Tools</div>
+              <div class="skill-chips-group">
+                <span class="tech-badge featured">Ansible Automation</span>
+                <span class="tech-badge featured">GitLab CI / CD</span>
+                <span class="tech-badge">Jenkins</span>
+                <span class="tech-badge">Docker</span>
+                <span class="tech-badge">Linux Administration</span>
+                <span class="tech-badge">Claude Code</span>
+                <span class="tech-badge">Cursor</span>
+                <span class="tech-badge">GitHub Copilot</span>
+              </div>
+            </div>
+          `;
+
+        case 'experience':
+        case 'exp':
+        case 'work':
+          return `
+            <div style="color:var(--text-muted); font-size:11.5px; margin-bottom:14px;">
+              ● Total Professional Experience: 4+ Years at Tata Consultancy Services (TCS)
+            </div>
+
+            <div class="timeline-node current">
+              <div class="tl-header">
+                <span class="tl-role">Full Stack Developer — TDC Brands (Onsite)</span>
+                <span class="tl-period">May 2025 – Present</span>
+              </div>
+              <div class="tl-company">TDC Brands · Copenhagen, Denmark 🇩🇰</div>
+              <div class="tl-stack">Java 17 · Spring Boot · React 18 · TypeScript · WebRTC (Client) · SIP Flow · BroadWorks · Kafka (Java) · Elasticsearch (Java) · Ansible</div>
+              <div class="tl-point">Engineered <b>client-side WebRTC softphone</b> application with audio/video controls integrated with Janus Gateway and Cisco BroadWorks signaling.</div>
+              <div class="tl-point">Delivered client-side call features: <b>3-way conference calling, hold/unhold, mute, blind & attended call transfer</b> with end-to-end signaling flow mastery.</div>
+              <div class="tl-point">Contributed to <b>Telecom Node Automation Platform</b>: software upgrade/downgrade engine, batch planning across clusters, and automated Cisco binary downloads with MD5 verification.</div>
+              <div class="tl-point">Developed <b>Telephony QoS Automation Robots</b>: automated synthetic call executions, streaming results to Kafka topics from Java, and querying Elasticsearch for root cause analytics.</div>
+              <div class="tl-point">Served as direct onsite technical bridge between European engineering architects in Copenhagen and development teams.</div>
+            </div>
+
+            <div class="timeline-node">
+              <div class="tl-header">
+                <span class="tl-role">Full Stack Java Developer — TDC Brands (Remote)</span>
+                <span class="tl-period">Feb 2025 – May 2025</span>
+              </div>
+              <div class="tl-company">TDC Brands · India → Denmark (Remote)</div>
+              <div class="tl-stack">Java 17 · Spring Boot · React · Python · SIPp · BroadSoft OCI · Linux</div>
+              <div class="tl-point">Developed telephony monitoring services utilizing SIPp scenarios and BroadSoft OCI proxy subscriber state verification.</div>
+              <div class="tl-point">Generated automated test suites covering feature access codes, Voice Portal, voicemail, and QoS validation.</div>
+              <div class="tl-point">Authored Python automation scripts and Ansible playbooks for operational cluster maintenance tasks.</div>
+            </div>
+
+            <div class="timeline-node">
+              <div class="tl-header">
+                <span class="tl-role">Assistant Systems Engineer — TDC Brands (Hybrid)</span>
+                <span class="tl-period">Jun 2024 – Feb 2025</span>
+              </div>
+              <div class="tl-company">TDC Brands · India (Hybrid)</div>
+              <div class="tl-stack">Java · Spring Boot · React · TypeScript · MySQL · GitLab CI · JSch SSH</div>
+              <div class="tl-point">Engineered core portal backend modules for telephony node lifecycle management, audit trails, and automated email alerts.</div>
+              <div class="tl-point">Integrated remote SSH execution (JSch) backed by Spring Retry and distributed concurrency locks.</div>
+              <div class="tl-point">Migrated portal modules from JavaScript to typed React TypeScript with React Query for enhanced performance.</div>
+            </div>
+
+            <div class="timeline-node">
+              <div class="tl-header">
+                <span class="tl-role">Java Developer — Verizon</span>
+                <span class="tl-period">Feb 2023 – Jun 2024</span>
+              </div>
+              <div class="tl-company">Verizon · Noida, India (Onsite)</div>
+              <div class="tl-stack">Java · Spring Boot · Spring Security · Oracle · MongoDB · PostgreSQL · Jenkins</div>
+              <div class="tl-point">Delivered mission-critical backend microservices for enterprise telecom customer provisioning.</div>
+              <div class="tl-point">Led complete <b>MongoDB to Oracle relational database migration</b> with zero data loss on live production environments.</div>
+              <div class="tl-point">Tuned complex SQL queries and re-indexed large tables, slashing latency on critical query paths.</div>
+            </div>
+
+            <div class="timeline-node">
+              <div class="tl-header">
+                <span class="tl-role">Graduate Trainee — Jaguar Land Rover (JLR)</span>
+                <span class="tl-period">Feb 2022 – Feb 2023</span>
+              </div>
+              <div class="tl-company">Jaguar Land Rover (JLR) · Noida, India (Onsite)</div>
+              <div class="tl-stack">IAM · Cisco ISE · Identity & Access Management · Network Security · Cybersecurity Support</div>
+              <div class="tl-point">Supported <b>IAM operations</b> for JLR's internal systems as part of a cybersecurity support team.</div>
+              <div class="tl-point">Worked with <b>Cisco ISE</b> for network access control and policy enforcement, handling day-to-day access requests and support tickets.</div>
+            </div>
+          `;
+
+        case 'projects':
+        case 'proj':
+          return `
+            <div class="proj-grid">
+              
+              <!-- Project 1 -->
+              <div class="project-card">
+                <div class="p-card-top">
+                  <div class="p-title">
+                    <span>📞 Client-Side WebRTC Softphone Application</span>
+                  </div>
+                  <span class="p-badge-client">TDC Brands</span>
+                </div>
+                <div class="p-desc">
+                  A softphone that runs entirely in the browser — no desktop app, no plugin. Built with React and TypeScript, talking to Janus Gateway on one side and Cisco BroadWorks on the other.
+                </div>
+                <div class="p-bullets">
+                  <div class="p-bullet"><b>UI & call state:</b> Built the interface, audio device selection, and the state machine tracking call status (idle, ringing, connected, ended) in React and TypeScript.</div>
+                  <div class="p-bullet"><b>Signaling:</b> Hooked up SIP signaling over WebSocket to Janus and BroadWorks — the standard REGISTER/INVITE/ACK/BYE flow, plus handling calls that drop mid-negotiation.</div>
+                  <div class="p-bullet"><b>Call controls:</b> Added the features the client asked for — 3-way conferencing, hold, mute, and both attended and blind transfer.</div>
+                  <div class="p-bullet"><b>Live state over WebSocket:</b> Pushed real-time call state and basic network quality numbers so the ops team can see what's happening without pulling logs.</div>
+                </div>
+                <div class="p-tags">
+                  <span class="p-tag">React 18</span>
+                  <span class="p-tag">TypeScript</span>
+                  <span class="p-tag">WebRTC (Client-Side)</span>
+                  <span class="p-tag">Janus WebRTC Testing Client</span>
+                  <span class="p-tag">SIP Flow</span>
+                  <span class="p-tag">Cisco BroadWorks</span>
+                  <span class="p-tag">WebSocket</span>
+                </div>
+                <div class="p-actions">
+                  <button class="btn-proj-action" onclick="executeCommand('softphone')">▶ Launch Live Softphone Simulator</button>
+                  <button class="btn-proj-action" onclick="switchViewMode('ide'); loadIdeFile('webrtc');">Inspect Source Code</button>
+                </div>
+              </div>
+
+              <!-- Project 2 -->
+              <div class="project-card">
+                <div class="p-card-top">
+                  <div class="p-title">
+                    <span>⚙️ Telephony Node Automation Platform</span>
+                  </div>
+                  <span class="p-badge-client">TDC Brands</span>
+                </div>
+                <div class="p-desc">
+                  An internal tool the ops team uses to upgrade and manage telephony nodes without SSHing into servers by hand.
+                </div>
+                <div class="p-bullets">
+                  <div class="p-bullet"><b>Upgrade engine:</b> Plans upgrade batches, runs them one cluster at a time, locks nodes mid-upgrade, and rolls back automatically if a step fails.</div>
+                  <div class="p-bullet"><b>Cisco binary pipeline:</b> Pulls firmware from Cisco's API with token auth, checks what's available, and verifies every download against its MD5 checksum before it's used.</div>
+                  <div class="p-bullet"><b>Audit trail:</b> Logs every action for traceability, plus Excel exports and email alerts the team asked for after an incident review.</div>
+                  <div class="p-bullet"><b>Frontend rewrite:</b> Moved the older JavaScript UI to TypeScript and switched data-fetching to React Query, which cut down on a lot of stale-data bugs.</div>
+                </div>
+                <div class="p-tags">
+                  <span class="p-tag">Java 17</span>
+                  <span class="p-tag">Spring Boot</span>
+                  <span class="p-tag">React 18</span>
+                  <span class="p-tag">TypeScript</span>
+                  <span class="p-tag">Ansible</span>
+                  <span class="p-tag">MySQL</span>
+                </div>
+                <div class="p-actions">
+                  <button class="btn-proj-action" onclick="switchViewMode('ide'); loadIdeFile('broadworks');">Inspect Java Service</button>
+                  <button class="btn-proj-action" onclick="switchViewMode('ide'); loadIdeFile('ansible');">Inspect Ansible Playbook</button>
+                </div>
+              </div>
+
+              <!-- Project 3 -->
+              <div class="project-card">
+                <div class="p-card-top">
+                  <div class="p-title">
+                    <span>🤖 Telephony QoS Automation Robots</span>
+                  </div>
+                  <span class="p-badge-client">TDC Brands</span>
+                </div>
+                <div class="p-desc">
+                  A scheduled job that places real test calls against the live system so quality issues get caught before customers notice.
+                </div>
+                <div class="p-bullets">
+                  <div class="p-bullet"><b>Test calls:</b> Runs calls on a schedule to check voice service, feature codes, and subscriber state through the BroadSoft OCI interface.</div>
+                  <div class="p-bullet"><b>Kafka:</b> Publishes call results and telemetry using Spring's KafkaTemplate so other services can react to failures quickly.</div>
+                  <div class="p-bullet"><b>Elasticsearch:</b> Wrote the queries that group failures by pattern, which made recurring issues much faster to spot than reading logs one by one.</div>
+                  <div class="p-bullet"><b>Alerts:</b> Sends email alerts when call quality metrics drop below a set threshold.</div>
+                </div>
+                <div class="p-tags">
+                  <span class="p-tag">Java 17</span>
+                  <span class="p-tag">Spring Boot</span>
+                  <span class="p-tag">Apache Kafka (Java Sending)</span>
+                  <span class="p-tag">Elasticsearch (Java Querying)</span>
+                  <span class="p-tag">SIPp</span>
+                  <span class="p-tag">BroadSoft OCI</span>
+                </div>
+                <div class="p-actions">
+                  <button class="btn-proj-action" onclick="switchViewMode('ide'); loadIdeFile('telecom-robot');">Inspect Robot Architecture</button>
+                </div>
+              </div>
+
+              <!-- Project 4 -->
+              <div class="project-card">
+                <div class="p-card-top">
+                  <div class="p-title">
+                    <span>🗄️ Enterprise MongoDB → Oracle Database Migration</span>
+                  </div>
+                  <span class="p-badge-client">Verizon</span>
+                </div>
+                <div class="p-desc">
+                  Migrated customer telecom records off MongoDB and onto Oracle without losing or duplicating a single record — verified every batch against the source counts.
+                </div>
+                <div class="p-bullets">
+                  <div class="p-bullet">Wrote multi-threaded extraction and transformation jobs with a verification checkpoint after every batch.</div>
+                  <div class="p-bullet">Designed the normalized Oracle schema and added compound indexes so query performance didn't regress after the move.</div>
+                </div>
+                <div class="p-tags">
+                  <span class="p-tag">Java</span>
+                  <span class="p-tag">Oracle DB</span>
+                  <span class="p-tag">MongoDB</span>
+                  <span class="p-tag">Spring Boot</span>
+                </div>
+              </div>
+
+            </div>
+          `;
+
+        case 'softphone':
+        case 'call':
+        case 'phone':
+          setTimeout(() => initSoftphoneVisualizer(), 200);
+          return `
+            <div class="telecom-station">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:8px;">
+                <div style="font-weight:700; color:var(--primary); font-size:13px; display:flex; align-items:center; gap:8px;">
+                  <span>📞 WebRTC Client Softphone Simulator</span>
+                  <span style="font-size:10px; background:rgba(0,255,102,0.15); color:var(--primary); padding:1px 6px; border-radius:3px;">CLIENT READY</span>
+                </div>
+                <span style="font-size:11px; color:var(--text-muted);">SBC Gateway: cph-telecom-sbc01.nordic-telecom.net:5060</span>
+              </div>
+
+              <div class="softphone-container">
+                <div class="phone-handset">
+                  <div class="phone-screen">
+                    <div class="phone-status-row">
+                      <span class="reg-status">● CLIENT REGISTERED</span>
+                      <span id="callStateLabel">IDLE</span>
+                    </div>
+                    <div class="phone-number-display" id="phoneDialDisplay">+45 71 40 95 36</div>
+                    <div class="phone-call-timer" id="phoneTimer">CALL TIME: 00:00</div>
+                  </div>
+
+                  <div class="dialpad-grid">
+                    <button class="dial-key" onclick="pressDialKey('1')"><span class="num">1</span><span class="sub"></span></button>
+                    <button class="dial-key" onclick="pressDialKey('2')"><span class="num">2</span><span class="sub">ABC</span></button>
+                    <button class="dial-key" onclick="pressDialKey('3')"><span class="num">3</span><span class="sub">DEF</span></button>
+                    <button class="dial-key" onclick="pressDialKey('4')"><span class="num">4</span><span class="sub">GHI</span></button>
+                    <button class="dial-key" onclick="pressDialKey('5')"><span class="num">5</span><span class="sub">JKL</span></button>
+                    <button class="dial-key" onclick="pressDialKey('6')"><span class="num">6</span><span class="sub">MNO</span></button>
+                    <button class="dial-key" onclick="pressDialKey('7')"><span class="num">7</span><span class="sub">PQRS</span></button>
+                    <button class="dial-key" onclick="pressDialKey('8')"><span class="num">8</span><span class="sub">TUV</span></button>
+                    <button class="dial-key" onclick="pressDialKey('9')"><span class="num">9</span><span class="sub">WXYZ</span></button>
+                    <button class="dial-key" onclick="pressDialKey('*')"><span class="num">*</span><span class="sub"></span></button>
+                    <button class="dial-key" onclick="pressDialKey('0')"><span class="num">0</span><span class="sub">+</span></button>
+                    <button class="dial-key" onclick="pressDialKey('#')"><span class="num">#</span><span class="sub"></span></button>
+                  </div>
+
+                  <div class="phone-actions-row">
+                    <button class="btn-call" id="btnStartCall" onclick="startSoftphoneCall()">
+                      <span>📞 DIAL</span>
+                    </button>
+                    <button class="btn-hangup" id="btnEndCall" onclick="endSoftphoneCall()">
+                      <span>✕ END</span>
+                    </button>
+                  </div>
+
+                  <div class="speed-dial-chips" style="margin-top:4px;">
+                    <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase;">Quick Speed Dials:</div>
+                    <div class="speed-chip" onclick="setPresetNumber('+45 71 40 95 36')">
+                      <span>Anurag Denmark Mobile</span>
+                      <b>+45 71 40 95 36</b>
+                    </div>
+                    <div class="speed-chip" onclick="setPresetNumber('*86')">
+                      <span>BroadWorks Voice Portal</span>
+                      <b>*86</b>
+                    </div>
+                    <div class="speed-chip" onclick="setPresetNumber('#330')">
+                      <span>Telecom Conference Bridge</span>
+                      <b>#330</b>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="phone-telemetry">
+                  <div class="telemetry-card">
+                    <div class="telemetry-header">
+                      <span>RTP AUDIO SPECTRUM (OPUS CODEC 48kHz)</span>
+                      <span id="audioBitrateTag" style="color:var(--text-muted); font-size:10.5px;">STANDBY</span>
+                    </div>
+                    <canvas id="audioWaveCanvas"></canvas>
+
+                    <div class="qos-strip">
+                      <div class="qos-box">
+                        <div class="qos-lbl">Latency</div>
+                        <div class="qos-val" id="qosLatency">11 ms</div>
+                      </div>
+                      <div class="qos-box">
+                        <div class="qos-lbl">Jitter</div>
+                        <div class="qos-val" id="qosJitter">0.6 ms</div>
+                      </div>
+                      <div class="qos-box">
+                        <div class="qos-lbl">Loss</div>
+                        <div class="qos-val" id="qosLoss">0.00%</div>
+                      </div>
+                      <div class="qos-box">
+                        <div class="qos-lbl">MOS Score</div>
+                        <div class="qos-val" id="qosMos">4.4 / 5.0</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="telemetry-card">
+                    <div class="telemetry-header">
+                      <span>LIVE CLIENT SIP SIGNALING TRACE</span>
+                      <button onclick="clearSipLogs()" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:10px;">Clear</button>
+                    </div>
+                    <div class="sip-console" id="sipConsole">
+                      <div class="sip-line"><span class="sip-time">[12:44:01]</span> <span class="sip-out">SIP/2.0</span> <span class="sip-msg">Client stack ready. WebSocket connection open to Janus Gateway.</span></div>
+                      <div class="sip-line"><span class="sip-time">[12:44:02]</span> <span class="sip-in">&lt;- REGISTER</span> <span class="sip-msg">sip:anurag@telecom.dk SIP/2.0 (Expires: 3600)</span></div>
+                      <div class="sip-line"><span class="sip-time">[12:44:03]</span> <span class="sip-out">-&gt; 200 OK</span> <span class="sip-msg">Registration confirmed by BroadWorks Session Controller</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        case 'htop':
+        case 'top':
+          setTimeout(() => initHtopTicker(), 100);
+          return `
+            <div class="htop-container">
+              <div style="display:flex; justify-content:space-between; margin-bottom:12px; color:var(--primary); font-weight:700;">
+                <span>htop - 12:44:09 [Telecom Enterprise Workstation - Copenhagen]</span>
+                <span style="color:var(--text-muted); font-size:10.5px;">Tasks: 38 total, 2 running · Load: 0.22 0.31 0.38</span>
+              </div>
+
+              <div class="htop-gauges">
+                <div>
+                  <div class="gauge-row">
+                    <span class="gauge-label">CPU[1]</span>
+                    <div class="gauge-bar-track"><div class="gauge-bar-fill" id="cpuBar1" style="width: 22%"></div></div>
+                    <span class="gauge-val" id="cpuVal1">22%</span>
+                  </div>
+                  <div class="gauge-row">
+                    <span class="gauge-label">CPU[2]</span>
+                    <div class="gauge-bar-track"><div class="gauge-bar-fill" id="cpuBar2" style="width: 16%"></div></div>
+                    <span class="gauge-val" id="cpuVal2">16%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="gauge-row">
+                    <span class="gauge-label">Mem</span>
+                    <div class="gauge-bar-track"><div class="gauge-bar-fill" style="width: 42%"></div></div>
+                    <span class="gauge-val">13.4G/32G</span>
+                  </div>
+                  <div class="gauge-row">
+                    <span class="gauge-label">Swp</span>
+                    <div class="gauge-bar-track"><div class="gauge-bar-fill" style="width: 3%"></div></div>
+                    <span class="gauge-val">180M/8G</span>
+                  </div>
+                </div>
+              </div>
+
+              <table class="htop-table">
+                <thead>
+                  <tr>
+                    <th>PID</th>
+                    <th>USER</th>
+                    <th>CPU%</th>
+                    <th>MEM%</th>
+                    <th>TIME+</th>
+                    <th>COMMAND</th>
+                  </tr>
+                </thead>
+                <tbody id="htopTableBody">
+                  <tr><td>1042</td><td>anurag</td><td style="color:var(--primary)">16.2%</td><td>4.1%</td><td>12:20.01</td><td>java -jar telecom-qos-robots.jar --spring.profiles=prod</td></tr>
+                  <tr><td>1088</td><td>anurag</td><td style="color:var(--primary)">11.4%</td><td>3.6%</td><td>07:15.30</td><td>janus-webrtc-gateway --config=/etc/janus.jcfg</td></tr>
+                  <tr><td>1105</td><td>anurag</td><td>7.9%</td><td>2.8%</td><td>04:45.10</td><td>java -jar node-automation-service.jar</td></tr>
+                  <tr><td>1240</td><td>anurag</td><td>5.8%</td><td>3.0%</td><td>10:18.42</td><td>kafka-telecom-events --brokers=kafka:9092</td></tr>
+                  <tr><td>1302</td><td>anurag</td><td>3.9%</td><td>4.8%</td><td>19:22.60</td><td>elasticsearch-telecom-node --cluster=telecom-logs</td></tr>
+                  <tr><td>1410</td><td>anurag</td><td>2.0%</td><td>1.2%</td><td>01:05.12</td><td>ansible-playbook node_upgrade_playbook.yml</td></tr>
+                  <tr><td>1550</td><td>anurag</td><td>1.6%</td><td>2.1%</td><td>03:12.40</td><td>node webrtc-softphone-client.js</td></tr>
+                  <tr><td>1780</td><td>anurag</td><td>0.5%</td><td>0.8%</td><td>00:30.12</td><td>claude-code-agent --copilot</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `;
+
+        case 'neofetch':
+        case 'fastfetch':
+          return `
+            <div style="display:flex; flex-wrap:wrap; gap:24px; margin:10px 0; align-items:center;">
+              <div style="color:var(--primary); font-family:monospace; font-size:11px; line-height:1.2; font-weight:700;">
+   ╭───────────────╮
+   │   ANURAG-OS   │
+   │  ┌─────────┐  │
+   │  │  DK 🇩🇰   │  │
+   │  │ TELECOM │  │
+   │  │ STATION │  │
+   │  └─────────┘  │
+   │   2026.09     │
+   ╰───────────────╯
+              </div>
+              <div style="font-size:12px; line-height:1.7;">
+                <div><b style="color:var(--primary)">anurag</b>@<b style="color:var(--accent-blue)">anurag</b></div>
+                <div style="color:var(--text-dim)">──────────────────────────────────</div>
+                <div><b style="color:var(--primary-dim)">OS:</b> AnuragOS Linux 6.12.0-telecom-x86_64</div>
+                <div><b style="color:var(--primary-dim)">Host:</b> TDC Brands Workstation (Copenhagen, Denmark 🇩🇰)</div>
+                <div><b style="color:var(--primary-dim)">Kernel:</b> Java 17 LTS / Spring Boot 3 / React 18</div>
+                <div><b style="color:var(--primary-dim)">Uptime:</b> 4 years, 8 months (Continuous Enterprise Delivery)</div>
+                <div><b style="color:var(--primary-dim)">Shell:</b> zsh 5.9 with Agentic Claude Code Extensions</div>
+                <div><b style="color:var(--primary-dim)">Terminal:</b> xterm-2026-glass</div>
+                <div><b style="color:var(--primary-dim)">Location:</b> Copenhagen, Denmark (55.6761° N, 12.5683° E)</div>
+                <div><b style="color:var(--primary-dim)">Status:</b> Open to Senior / Lead Full Stack Engineering Roles</div>
+                <div style="margin-top:6px; display:flex; gap:6px;">
+                  <span style="background:#ff5f56; width:14px; height:14px; border-radius:2px; display:inline-block;"></span>
+                  <span style="background:#ffbd2e; width:14px; height:14px; border-radius:2px; display:inline-block;"></span>
+                  <span style="background:#27c93f; width:14px; height:14px; border-radius:2px; display:inline-block;"></span>
+                  <span style="background:#38bdf8; width:14px; height:14px; border-radius:2px; display:inline-block;"></span>
+                  <span style="background:#bd93f9; width:14px; height:14px; border-radius:2px; display:inline-block;"></span>
+                  <span style="background:#e6edf3; width:14px; height:14px; border-radius:2px; display:inline-block;"></span>
+                </div>
+              </div>
+            </div>
+          `;
+
+        case 'ai-workflow':
+        case './ai-workflow.sh':
+        case 'ai':
+          return `
+            <div style="color:var(--accent-cyan); font-weight:700; margin-bottom:10px; font-size:12.5px;">
+              // AI-Assisted Software Engineering — Daily Professional Workflow
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px; font-size:12px;">
+              <div style="background:var(--surface-elevated); padding:10px 14px; border-radius:var(--radius-sm); border-left:3px solid var(--primary);">
+                <b style="color:var(--primary)">1. Agentic Coding (Claude Code, Cursor, Copilot):</b>
+                <div style="color:var(--text-muted); margin-top:3px;">
+                  Daily autonomous workflows for complex refactoring, test scaffolding, large codebase explorations, and rapid prototype generation.
+                </div>
+              </div>
+              <div style="background:var(--surface-elevated); padding:10px 14px; border-radius:var(--radius-sm); border-left:3px solid var(--accent-blue);">
+                <b style="color:var(--accent-blue)">2. Context Engineering (CLAUDE.md & Custom Agents):</b>
+                <div style="color:var(--text-muted); margin-top:3px;">
+                  Authoring persistent project rules, architecture memory, and schema constraints to ensure AI generations adhere 100% to enterprise standards without hallucinations.
+                </div>
+              </div>
+              <div style="background:var(--surface-elevated); padding:10px 14px; border-radius:var(--radius-sm); border-left:3px solid var(--accent-yellow);">
+                <b style="color:var(--accent-yellow)">3. Production Examples:</b>
+                <div style="color:var(--text-muted); margin-top:3px;">
+                  Migration of legacy JavaScript to typed React TypeScript, building typed Elasticsearch query models in Java, and automating node maintenance playbooks.
+                </div>
+              </div>
+            </div>
+          `;
+
+        case 'ask-anurag':
+        case 'ask':
+          if (!arg) {
+            return `
+              <div style="background:var(--surface-elevated); border:1px solid var(--border); border-radius:var(--radius-md); padding:14px;">
+                <div style="font-weight:700; color:var(--primary); margin-bottom:8px;">🤖 Ask Anurag AI Assistant</div>
+                <div style="color:var(--text-muted); font-size:12px; margin-bottom:12px;">
+                  Ask any question regarding Anurag's background, skills, Copenhagen onsite work, or hiring availability!
+                </div>
+                <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                  <button class="chip-btn" onclick="askAiPrompt('Why should we hire Anurag?')">"Why should we hire Anurag?"</button>
+                  <button class="chip-btn" onclick="askAiPrompt('What is your onsite work in Copenhagen?')">"What is your onsite work in Copenhagen?"</button>
+                  <button class="chip-btn" onclick="askAiPrompt('Tell me about your WebRTC and SIP experience')">"Tell me about your WebRTC and SIP experience"</button>
+                  <button class="chip-btn" onclick="askAiPrompt('How do you use Kafka and Elasticsearch in Java?')">"How do you use Kafka and Elasticsearch in Java?"</button>
+                </div>
+                <div style="color:var(--text-dim); font-size:11px; margin-top:10px;">
+                  Usage: <span style="color:var(--primary)">ask-anurag &lt;your question&gt;</span>
+                </div>
+              </div>
+            `;
+          }
+          return generateAiAnswer(arg);
+
+        case 'contact':
+        case 'email':
+          return `
+            <div class="term-table">
+              <div class="t-key">📞 Denmark (Current):</div><div class="t-val"><b style="color:var(--primary)">+45 71 40 95 36</b></div>
+              <div class="t-key">📞 India (Base):</div>   <div class="t-val"><b>+91 70786 18533</b></div>
+              <div class="t-key">✉️ Email:</div>         <div class="t-val"><a href="mailto:srivastavaanurag42@gmail.com">srivastavaanurag42@gmail.com</a></div>
+              <div class="t-key">🔗 LinkedIn:</div>      <div class="t-val"><a href="https://linkedin.com/in/ava6411" target="_blank">linkedin.com/in/ava6411 ↗</a></div>
+              <div class="t-key">📍 Location:</div>      <div class="t-val">Copenhagen, Denmark (Onsite) · Open to Denmark, Europe & Global Relocation</div>
+              <div class="t-key">🗣️ Languages:</div>     <div class="t-val">English (Full Professional) · Hindi (Native)</div>
+            </div>
+            <div style="margin-top:10px; color:var(--text-muted); font-size:12px;">
+              ⚡ Available for Senior / Lead Full Stack Developer & Systems Engineer positions.
+            </div>
+          `;
+
+        case 'resume':
+        case 'cv':
+          setTimeout(() => openResumeModal(), 100);
+          return `<div style="color:var(--primary)">Opening official printable CV/Resume viewer...</div>`;
+
+        case 'matrix':
+          toggleMatrix();
+          return `<div style="color:var(--primary)">Toggling Matrix digital rain stream... Type 'matrix' again to disable.</div>`;
+
+        case 'weather':
+          return `
+            <div style="background:rgba(0,0,0,0.2); padding:10px 14px; border-radius:var(--radius-sm); border-left:3px solid var(--accent-blue); font-size:12px;">
+              <b style="color:var(--accent-blue)">Copenhagen, Denmark 🇩🇰 (Local Telemetry)</b><br>
+              Temperature: 14°C (Feels like 13°C) · Overcast Clouds ☁️<br>
+              Wind: 18 km/h WNW · Humidity: 76% · Pressure: 1014 hPa<br>
+              Coordinates: 55.6761° N, 12.5683° E (Copenhagen Onsite Office)
+            </div>
+          `;
+
+        case 'date':
+          return `<div>${new Date().toUTCString()} (Local: Copenhagen CEST)</div>`;
+
+        case 'uname':
+          return `<div>Linux cph-telecom-station 6.12.0-anurag-arch x86_64 GNU/Linux</div>`;
+
+        case 'pwd':
+          return `<div>/home/anurag</div>`;
+
+        case 'ls':
+          return `
+            <div style="display:flex; flex-wrap:wrap; gap:16px; font-weight:600; font-size:12.5px;">
+              <span style="color:var(--accent-blue)">📁 projects/</span>
+              <span style="color:var(--accent-blue)">📁 scripts/</span>
+              <span style="color:var(--text)">📄 README.md</span>
+              <span style="color:var(--text)">📄 skills.json</span>
+              <span style="color:var(--primary)">⚙️ init-portfolio.sh*</span>
+              <span style="color:var(--primary)">⚙️ softphone.sh*</span>
+              <span style="color:var(--primary)">⚙️ ai-workflow.sh*</span>
+            </div>
+          `;
+
+        case 'cat':
+          if (!arg) return `<div style="color:var(--accent-red)">cat: missing file operand. Example: cat README.md</div>`;
+          if (arg.includes('readme')) return `<div style="white-space:pre-wrap; color:var(--text)">${VIRTUAL_FS['~'].children['README.md'].content}</div>`;
+          if (arg.includes('skills')) return `<div style="white-space:pre-wrap; color:var(--primary-dim)">${VIRTUAL_FS['~'].children['skills.json'].content}</div>`;
+          return `<div style="color:var(--accent-red)">cat: ${arg}: No such file or directory</div>`;
+
+        case 'theme':
+          if (!arg) {
+            return `<div>Available themes: <b>emerald</b>, <b>matrix</b>, <b>nordic</b>, <b>dracula</b>, <b>amber</b>. Usage: theme nordic</div>`;
+          }
+          changeTheme(arg);
+          return `<div style="color:var(--primary)">Theme changed to '${arg}'.</div>`;
+
+        case 'sound':
+          toggleAudio();
+          return `<div style="color:var(--primary)">Audio effects toggled: ${audioEnabled ? 'ENABLED 🔊' : 'MUTED 🔇'}.</div>`;
+
+        case 'crt':
+          toggleCRT();
+          return `<div style="color:var(--primary)">CRT scanline filter toggled.</div>`;
+
+        case 'tour':
+          startGuidedTour();
+          return `<div style="color:var(--primary)">Starting guided recruiter tour...</div>`;
+
+        case 'clear':
+        case 'cls':
+          clearTerminalLogs();
+          return null;
+
+        case 'help':
+        case '?':
+          return `
+            <div style="color:var(--primary); font-weight:700; margin-bottom:6px;">AVAILABLE COMMANDS:</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:6px 14px; font-size:12px;">
+              <div><b style="color:var(--primary)">whoami</b> — Summary, role & contact</div>
+              <div><b style="color:var(--primary)">skills</b> — Full technical stack</div>
+              <div><b style="color:var(--primary)">experience</b> — Timeline & achievements</div>
+              <div><b style="color:var(--primary)">projects</b> — Key engineering projects</div>
+              <div><b style="color:var(--primary)">softphone</b> — Client WebRTC softphone</div>
+              <div><b style="color:var(--primary)">htop</b> — Real-time process monitor</div>
+              <div><b style="color:var(--primary)">ask-anurag</b> — AI assistant persona</div>
+              <div><b style="color:var(--primary)">neofetch</b> — System specs & telemetry</div>
+              <div><b style="color:var(--primary)">matrix</b> — Toggle matrix digital rain</div>
+              <div><b style="color:var(--primary)">contact</b> — Denmark & India numbers</div>
+              <div><b style="color:var(--primary)">resume</b> — Printable CV & PDF export</div>
+              <div><b style="color:var(--primary)">theme [name]</b> — emerald, matrix, nordic, etc.</div>
+              <div><b style="color:var(--primary)">sound</b> — Toggle audio sound effects</div>
+              <div><b style="color:var(--primary)">crt</b> — Toggle retro CRT scanlines</div>
+              <div><b style="color:var(--primary)">clear</b> — Clear terminal buffer</div>
+            </div>
+          `;
+
+        case 'sudo':
+          return `<div style="color:var(--accent-red)">anurag is not in the sudoers file. This incident will be reported. 😉</div>`;
+
+        default:
+          return `<div style="color:var(--accent-red)">zsh: command not found: <b>${escapeHtml(cmdStr)}</b>. Type <span style="color:var(--primary)">help</span> for available commands.</div>`;
+      }
+    }
+
+    function generateAiAnswer(prompt) {
+      const p = prompt.toLowerCase();
+      let answer = "";
+
+      if (p.includes('hire') || p.includes('why') || p.includes('strength')) {
+        answer = `Anurag offers a strong, enterprise-tested combination of Java 17 backend microservice mastery, client-side WebRTC softphone engineering, and real-time telecom knowledge. He is currently onsite in Copenhagen collaborating directly with European architects and utilizing modern AI agentic coding workflows to ship robust software.`;
+      } else if (p.includes('copenhagen') || p.includes('onsite') || p.includes('denmark')) {
+        answer = `Anurag has been onsite in Copenhagen, Denmark since May 2025 at TDC Brands. He developed the client-side WebRTC softphone application with audio/video controls, contributed to core telephony node automation platforms, and built synthetic telephony QoS testing services integrating Kafka and Elasticsearch with Java.`;
+      } else if (p.includes('webrtc') || p.includes('softphone') || p.includes('sip')) {
+        answer = `Anurag engineered the client-side softphone application using React, TypeScript, and Janus WebRTC Gateway integration, with complete end-to-end understanding of SIP signaling (REGISTER, INVITE, ACK, BYE) and media negotiation. He delivered conference calling, attended and blind transfers, hold/unhold, and live call state panels.`;
+      } else if (p.includes('kafka') || p.includes('elastic') || p.includes('query')) {
+        answer = `In Java and Spring Boot, Anurag actively sends data and event streams to Kafka topics using Spring's KafkaTemplate, and writes Java queries and search builders to extract, search, and aggregate telemetry data stored in Elasticsearch.`;
+      } else if (p.includes('relocate') || p.includes('visa') || p.includes('remote') || p.includes('available')) {
+        answer = `Anurag is currently onsite in Copenhagen on corporate assignment. He is open to discussions for full-time Senior or Lead Full Stack / Systems Engineer roles in Denmark, across the EU, the UK, or internationally, as well as high-impact remote positions.`;
+      } else if (p.includes('stack') || p.includes('java') || p.includes('spring') || p.includes('react')) {
+        answer = `His core production stack is Java 17 LTS with Spring Boot 3, Spring Data JPA, and Spring Security on the backend, paired with React 18, TypeScript, and Material UI on the frontend. He integrates Kafka for event publishing and Elasticsearch for data querying from Java.`;
+      } else {
+        answer = `Thank you for your question! Anurag is a Systems Engineer at TCS with 4+ years of experience in Java 17, Spring Boot, React, WebRTC softphone development, and telecom automation, currently onsite in Copenhagen. Connect directly via email at srivastavaanurag42@gmail.com or call +45 71 40 95 36.`;
+      }
+
+      return `
+        <div style="background:var(--surface-elevated); border:1px solid var(--border); border-left:3px solid var(--primary); border-radius:var(--radius-sm); padding:12px 16px;">
+          <div style="color:var(--primary); font-weight:700; font-size:11.5px; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+            <span>🤖 Anurag AI Assistant</span>
+            <span style="color:var(--text-dim)">— Question: "${escapeHtml(prompt)}"</span>
+          </div>
+          <div style="color:var(--text); font-size:12px; line-height:1.6;">
+            ${answer}
+          </div>
+        </div>
+      `;
+    }
+
+    function askAiPrompt(q) {
+      document.getElementById('termInput').value = `ask-anurag ${q}`;
+      executeCommand(`ask-anurag ${q}`);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       4. TERMINAL DOM RENDERING & EXECUTION
+       ───────────────────────────────────────────────────────────────── */
+    const termContent = document.getElementById('termContent');
+    const termInput = document.getElementById('termInput');
+
+    function escapeHtml(text) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    function clearTerminalLogs() {
+      termContent.innerHTML = '';
+    }
+
+    function executeCommand(cmdStr) {
+      if (!cmdStr || !cmdStr.trim()) return;
+      playKeyClick();
+
+      cmdHistory.push(cmdStr);
+      historyIdx = cmdHistory.length;
+
+      const outputHtml = getCommandOutput(cmdStr);
+
+      if (outputHtml !== null) {
+        const entry = document.createElement('div');
+        entry.className = 'term-log-entry';
+        entry.innerHTML = `
+          <div class="term-prompt-row">
+            <span class="p-user">anurag</span><span class="p-at">@</span><span class="p-host">anurag</span><span class="p-col">:</span><span class="p-path">~</span><span class="p-sign">$</span>
+            <span class="p-cmd">${escapeHtml(cmdStr)}</span>
+          </div>
+          <div class="term-log-output">${outputHtml}</div>
+        `;
+        termContent.appendChild(entry);
+        termContent.scrollTop = termContent.scrollHeight;
+      }
+
+      termInput.value = '';
+    }
+
+    function runChipCommand(cmd) {
+      document.querySelectorAll('.chip-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = Array.from(document.querySelectorAll('.chip-btn')).find(b => b.textContent.includes(cmd));
+      if (activeBtn) activeBtn.classList.add('active');
+
+      executeCommand(cmd);
+      termInput.focus();
+    }
+
+    function focusTermInput() {
+      termInput.focus();
+    }
+
+    termInput.addEventListener('keydown', function(e) {
+      playKeyClick();
+
+      if (e.key === 'Enter') {
+        const val = termInput.value.trim();
+        if (val) {
+          executeCommand(val);
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (cmdHistory.length > 0 && historyIdx > 0) {
+          historyIdx--;
+          termInput.value = cmdHistory[historyIdx];
+        }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyIdx < cmdHistory.length - 1) {
+          historyIdx++;
+          termInput.value = cmdHistory[historyIdx];
+        } else {
+          historyIdx = cmdHistory.length;
+          termInput.value = '';
+        }
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        const current = termInput.value.trim();
+        if (current) {
+          const match = COMMAND_LIST.find(c => c.startsWith(current));
+          if (match) {
+            termInput.value = match;
+          }
+        }
+      } else if (e.ctrlKey && e.key === 'l') {
+        e.preventDefault();
+        clearTerminalLogs();
+      }
+    });
+
+    /* ─────────────────────────────────────────────────────────────────
+       5. CLIENT-SIDE SOFTPHONE SIMULATION LOGIC & WEB AUDIO CANVAS
+       ───────────────────────────────────────────────────────────────── */
+    let dialBuffer = "+45 71 40 95 36";
+    let isCallActive = false;
+    let callTimerInterval = null;
+    let callSeconds = 0;
+    let waveAnimFrame = null;
+
+    function pressDialKey(key) {
+      initAudio();
+      playDtmfTone(key);
+
+      if (!isCallActive) {
+        if (dialBuffer.length < 18) {
+          dialBuffer += key;
+          document.getElementById('phoneDialDisplay').textContent = dialBuffer;
+        }
+      } else {
+        appendSipLog('-> DTMF INFO', `Tone ${key} sent via RFC 2833 / SIP INFO`);
+      }
+    }
+
+    function setPresetNumber(num) {
+      dialBuffer = num;
+      document.getElementById('phoneDialDisplay').textContent = dialBuffer;
+      playKeyBeep(700, 0.05);
+    }
+
+    function startSoftphoneCall() {
+      if (isCallActive) return;
+      initAudio();
+
+      const num = dialBuffer || "+45 71 40 95 36";
+      const stateLbl = document.getElementById('callStateLabel');
+      const startBtn = document.getElementById('btnStartCall');
+      const hangupBtn = document.getElementById('btnEndCall');
+      const timerEl = document.getElementById('phoneTimer');
+      const bitrateTag = document.getElementById('audioBitrateTag');
+
+      stateLbl.textContent = 'CALLING...';
+      stateLbl.style.color = 'var(--accent-yellow)';
+      startBtn.style.opacity = '0.5';
+      hangupBtn.classList.add('active');
+
+      appendSipLog('-> INVITE', `sip:${num.replace(/\s+/g,'')}@nordic-telecom.net SIP/2.0`);
+      playKeyBeep(440, 0.3, 'sine');
+
+      setTimeout(() => {
+        appendSipLog('<- 100 TRYING', `BroadWorks Session Controller processing request`);
+        stateLbl.textContent = 'RINGING...';
+      }, 700);
+
+      setTimeout(() => {
+        appendSipLog('<- 180 RINGING', `SDP Early Media: Opus/48000/2, ICE Candidate Selected`);
+        playKeyBeep(440, 0.4, 'sine');
+      }, 1500);
+
+      setTimeout(() => {
+        appendSipLog('<- 200 OK', `Session Established. Janus Gateway Media Bridge active.`);
+        appendSipLog('-> ACK', `sip:${num.replace(/\s+/g,'')}@nordic-telecom.net SIP/2.0`);
+
+        isCallActive = true;
+        stateLbl.textContent = 'CONNECTED';
+        stateLbl.style.color = 'var(--primary)';
+        timerEl.style.display = 'block';
+        bitrateTag.textContent = 'LIVE: 32 kbps (Opus)';
+        bitrateTag.style.color = 'var(--primary)';
+
+        callSeconds = 0;
+        callTimerInterval = setInterval(() => {
+          callSeconds++;
+          const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+          const secs = String(callSeconds % 60).padStart(2, '0');
+          timerEl.textContent = `CALL TIME: ${mins}:${secs}`;
+        }, 1000);
+      }, 2500);
+    }
+
+    function endSoftphoneCall() {
+      if (!isCallActive) return;
+      playKeyBeep(300, 0.15, 'sawtooth');
+
+      const stateLbl = document.getElementById('callStateLabel');
+      const startBtn = document.getElementById('btnStartCall');
+      const hangupBtn = document.getElementById('btnEndCall');
+      const timerEl = document.getElementById('phoneTimer');
+      const bitrateTag = document.getElementById('audioBitrateTag');
+
+      clearInterval(callTimerInterval);
+      isCallActive = false;
+
+      appendSipLog('-> BYE', `sip:${dialBuffer.replace(/\s+/g,'')}@nordic-telecom.net SIP/2.0`);
+      setTimeout(() => {
+        appendSipLog('<- 200 OK', `Call terminated. Metrics emitted to Kafka topic.`);
+      }, 300);
+
+      stateLbl.textContent = 'DISCONNECTED';
+      stateLbl.style.color = 'var(--accent-red)';
+      hangupBtn.classList.remove('active');
+      startBtn.style.opacity = '1';
+      bitrateTag.textContent = 'STANDBY';
+      bitrateTag.style.color = 'var(--text-muted)';
+
+      setTimeout(() => {
+        stateLbl.textContent = 'IDLE';
+        stateLbl.style.color = 'var(--text-dim)';
+        timerEl.style.display = 'none';
+      }, 2000);
+    }
+
+    function appendSipLog(type, msg) {
+      const consoleEl = document.getElementById('sipConsole');
+      if (!consoleEl) return;
+
+      const d = new Date();
+      const timeStr = `[${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}]`;
+
+      const line = document.createElement('div');
+      line.className = 'sip-line';
+      const isOut = type.includes('->');
+      line.innerHTML = `
+        <span class="sip-time">${timeStr}</span>
+        <span class="${isOut ? 'sip-out' : 'sip-in'}">${type}</span>
+        <span class="sip-msg">${escapeHtml(msg)}</span>
+      `;
+      consoleEl.appendChild(line);
+      consoleEl.scrollTop = consoleEl.scrollHeight;
+    }
+
+    function clearSipLogs() {
+      const consoleEl = document.getElementById('sipConsole');
+      if (consoleEl) consoleEl.innerHTML = '';
+    }
+
+    function initSoftphoneVisualizer() {
+      const canvas = document.getElementById('audioWaveCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.parentElement.clientWidth || 300;
+      canvas.height = 70;
+
+      let phase = 0;
+      function drawWave() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = isCallActive ? '#00ff66' : '#24354b';
+        ctx.beginPath();
+
+        const sliceWidth = canvas.width / 50;
+        let x = 0;
+
+        for (let i = 0; i <= 50; i++) {
+          const amplitude = isCallActive ? (Math.sin(i * 0.3 + phase) * 20 + Math.cos(i * 0.15 - phase) * 10) : 0;
+          const y = canvas.height / 2 + amplitude;
+          if (i === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+          x += sliceWidth;
+        }
+
+        ctx.stroke();
+        phase += isCallActive ? 0.15 : 0.02;
+        waveAnimFrame = requestAnimationFrame(drawWave);
+      }
+
+      if (waveAnimFrame) cancelAnimationFrame(waveAnimFrame);
+      drawWave();
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       6. HTOP LIVE TICKER
+       ───────────────────────────────────────────────────────────────── */
+    function initHtopTicker() {
+      setInterval(() => {
+        const cpu1 = Math.floor(16 + Math.random() * 20);
+        const cpu2 = Math.floor(12 + Math.random() * 18);
+
+        const bar1 = document.getElementById('cpuBar1');
+        const val1 = document.getElementById('cpuVal1');
+        const bar2 = document.getElementById('cpuBar2');
+        const val2 = document.getElementById('cpuVal2');
+
+        if (bar1 && val1) {
+          bar1.style.width = cpu1 + '%';
+          val1.textContent = cpu1 + '%';
+        }
+        if (bar2 && val2) {
+          bar2.style.width = cpu2 + '%';
+          val2.textContent = cpu2 + '%';
+        }
+      }, 1500);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       7. IDE WORKSPACE MODE
+       ───────────────────────────────────────────────────────────────── */
+    const IDE_FILES = {
+      'webrtc': {
+        title: 'WebRTCSoftphoneClient.tsx',
+        code: `import React, { useEffect, useRef, useState } from 'react';
+import { Janus } from 'janus-gateway';
+
+// Client-Side WebRTC Softphone Component
+// Author: Anurag Kumar (Systems Engineer @ TCS)
+export const WebRTCSoftphoneClient: React.FC = () => {
+  const [session, setSession] = useState<Janus | null>(null);
+  const [callState, setCallState] = useState<'IDLE' | 'CALLING' | 'RINGING' | 'CONNECTED'>('IDLE');
+  const sipPluginHandle = useRef<any>(null);
+
+  useEffect(() => {
+    Janus.init({
+      debug: false,
+      callback: () => {
+        const janus = new Janus({
+          server: 'wss://webrtc-gateway.telecom-hub.net:8989',
+          success: () => {
+            setSession(janus);
+            attachClientSipPlugin(janus);
+          },
+          error: (err) => console.error('Janus connection error:', err)
+        });
+      }
+    });
+  }, []);
+
+  const attachClientSipPlugin = (janus: Janus) => {
+    janus.attach({
+      plugin: 'janus.plugin.sip',
+      success: (pluginHandle) => {
+        sipPluginHandle.current = pluginHandle;
+        // Client-side SIP Registration
+        pluginHandle.send({
+          message: {
+            request: 'register',
+            username: 'sip:anurag@telecom.dk',
+            proxy: 'sip:cph-sbc.telecom.dk:5060'
+          }
+        });
+      },
+      onmessage: (msg, jsep) => handleClientSignaling(msg, jsep)
+    });
+  };
+
+  const handleClientSignaling = (msg: any, jsep: any) => {
+    const event = msg?.result?.event;
+    if (event === 'calling') setCallState('CALLING');
+    if (event === 'ringing') setCallState('RINGING');
+    if (event === 'accepted') setCallState('CONNECTED');
+    if (event === 'hangup') setCallState('IDLE');
+  };
+
+  return (
+    <div className="telecom-softphone-view">
+      <h3>Client-Side WebRTC Softphone</h3>
+      <p>Current Status: {callState}</p>
+    </div>
+  );
+};`
+      },
+      'broadworks': {
+        title: 'BroadWorksSyncService.java',
+        code: `package com.telecom.automation.service;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.stereotype.Service;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
+
+/**
+ * Enterprise Telecom Node Lifecycle & Upgrade Service
+ * Author: Anurag Kumar (Systems Engineer @ TCS)
+ */
+@Service
+@Slf4j
+@RequiredArgsConstructor
+public class BroadWorksSyncService {
+
+    private final RemoteSshExecutor sshExecutor;
+    private final NodeAuditRepository auditRepo;
+    private final ConcurrentHashMap<String, ReentrantLock> clusterLocks = new ConcurrentHashMap<>();
+
+    @Retryable(maxAttempts = 3, backoff = @Backoff(delay = 2000))
+    public UpgradeResult executeClusterUpgrade(String clusterId, String targetVersion) {
+        ReentrantLock lock = clusterLocks.computeIfAbsent(clusterId, k -> new ReentrantLock());
+        if (!lock.tryLock()) {
+            throw new ClusterBusyException("Cluster " + clusterId + " is currently locked by another run.");
+        }
+        try {
+            log.info("Starting safe sequential node upgrade for cluster: {}", clusterId);
+            auditRepo.recordStart(clusterId, targetVersion);
+
+            // Step 1: Pre-flight cluster health check
+            verifyClusterHealth(clusterId);
+
+            // Step 2: Stream Cisco binary downloads with MD5 checksum validation
+            sshExecutor.streamCiscoBinary(clusterId, targetVersion);
+
+            // Step 3: Upgrade standby node, verify traffic flow, then swap active
+            return new UpgradeResult(clusterId, true, "Success: cluster upgraded with zero dropped calls");
+        } finally {
+            lock.unlock();
+        }
+    }
+}`
+      },
+      'telecom-robot': {
+        title: 'TelephonyQoSRobot.java',
+        code: `package com.telecom.qos.robots;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.index.query.QueryBuilders;
+
+/**
+ * Synthetic Telephony Quality Testing Service
+ * Author: Anurag Kumar
+ * Demonstrating: Sending events to Kafka and querying Elasticsearch via Java
+ */
+@Component
+@Slf4j
+@RequiredArgsConstructor
+public class TelephonyQoSRobot {
+
+    private final KafkaTemplate<String, CallOutcomeEvent> kafkaTemplate;
+    private final RestHighLevelClient elasticsearchClient;
+    private final SipCallExecutor sipExecutor;
+
+    @Scheduled(fixedRate = 60000)
+    public void executeSyntheticCallSuite() {
+        // Step 1: Execute automated SIP test call
+        CallResult result = sipExecutor.runScenario("VoicePortal-Test-*86");
+
+        // Step 2: Send telemetry event to Kafka from Java
+        CallOutcomeEvent event = CallOutcomeEvent.from(result);
+        kafkaTemplate.send("telecom-call-events", result.getCallId(), event);
+        log.info("Dispatched call metric event to Kafka topic: {}", event.getCallId());
+
+        // Step 3: Query Elasticsearch using Java Query Builders for anomaly patterns
+        queryRecentAnomalies(result.getServiceCode());
+    }
+
+    public void queryRecentAnomalies(String serviceCode) {
+        SearchRequest searchRequest = new SearchRequest("telecom-call-logs");
+        searchRequest.source().query(
+            QueryBuilders.boolQuery()
+                .must(QueryBuilders.matchQuery("serviceCode", serviceCode))
+                .must(QueryBuilders.rangeQuery("timestamp").gte("now-15m"))
+                .filter(QueryBuilders.termQuery("status", "FAILED"))
+        );
+        // Execute search query against Elasticsearch cluster
+        log.info("Querying Elasticsearch cluster from Java for recent service anomalies...");
+    }
+}`
+      },
+      'ansible': {
+        title: 'node_upgrade_playbook.yml',
+        code: `---
+- name: Enterprise Telecom Node Rollout
+  hosts: telecom_clusters
+  serial: 1
+  gather_facts: yes
+  vars:
+    target_version: "Rel24.0.0-CPH"
+    backup_dir: "/var/telecom/backups"
+
+  tasks:
+    - name: Pre-upgrade Subscriber Session Drain
+      command: /opt/telecom/bin/drain_subscribers.sh --wait-timeout=120
+      register: drain_status
+      failed_when: drain_status.rc != 0
+
+    - name: Verify MD5 Checksum of Cisco Binary
+      stat:
+        path: "/tmp/cisco_pkg_{{ target_version }}.tar.gz"
+        checksum_algorithm: md5
+      register: binary_stat
+      failed_when: binary_stat.stat.md5 != expected_md5
+
+    - name: Execute Software Patch
+      command: /opt/telecom/bin/apply_patch.sh --version={{ target_version }}
+
+    - name: Restore Active Traffic & Run Synthetic SIP Echo
+      command: /usr/local/bin/sipp_echo_test.sh --destination=127.0.0.1:5060`
+      },
+      'arch-webrtc': {
+        title: 'webrtc-client-flow.md',
+        code: `# Client-Side WebRTC Softphone Architecture
+
+[Browser Client (React + TypeScript)]
+       │
+       ▼ (Client Controls & WebSocket Signaling)
+[Janus WebRTC Media Gateway]
+       │
+       ▼ (SIP / RTP Signaling)
+[Cisco BroadWorks Session Border Controller (SBC)]
+       │
+       ▼ (Core Network Infrastructure)
+[Enterprise Telephony Network]`
+      },
+      'arch-telecom': {
+        title: 'java-kafka-elasticsearch.md',
+        code: `# Java Integration Architecture: Kafka & Elasticsearch
+
+[Automated Test Robot (Java 17)]
+       │
+       ├──> (Spring KafkaTemplate) ────> [Apache Kafka Topics]
+       │                                        │
+       │                                        ▼
+       └──> (Java Query Builders) ───> [Elasticsearch Cluster]
+                                                │
+                                                ▼
+                                    [Analytics & Root Cause Search]`
+      },
+      'bio': {
+        title: 'Anurag_Kumar_CV.md',
+        code: `# Anurag Kumar
+**Systems Engineer @ Tata Consultancy Services**
+Location: Copenhagen, Denmark 🇩🇰 (TDC Brands Onsite)
+Email: srivastavaanurag42@gmail.com
+Mobile: +45 71 40 95 36 (Denmark) / +91 70786 18533 (India)
+LinkedIn: https://linkedin.com/in/ava6411
+
+4+ years delivering Java 17, Spring Boot, React, client-side WebRTC softphones, Kafka event publishing & Elasticsearch Java query integration.`
+      },
+      'skills-json': {
+        title: 'skills.json',
+        code: `{
+  "engineer": "Anurag Kumar",
+  "location": "Copenhagen, Denmark",
+  "languages": ["Java 17", "TypeScript", "JavaScript", "Python", "SQL", "Bash"],
+  "frameworks": ["Spring Boot 3", "React 18", "Material UI", "React Query"],
+  "telecom_realtime": ["WebRTC (Client-Side)", "E2E Signaling Flow", "Cisco BroadWorks", "Janus Integration"],
+  "data_integration": ["Apache Kafka (Sending from Java)", "Elasticsearch (Querying from Java)"],
+  "databases": ["Oracle", "PostgreSQL", "MySQL", "MongoDB"],
+  "devops_tools": ["Ansible", "GitLab CI", "Jenkins", "Docker", "Linux"]
+}`
+      }
+    };
+
+    function switchViewMode(mode) {
+      const termEl = document.getElementById('terminalWindow');
+      const ideEl = document.getElementById('ideWorkspace');
+      const btnTerm = document.getElementById('btnModeTerm');
+      const btnIde = document.getElementById('btnModeIde');
+
+      if (mode === 'ide') {
+        termEl.style.display = 'none';
+        ideEl.style.display = 'grid';
+        btnTerm.classList.remove('active');
+        btnIde.classList.add('active');
+        loadIdeFile('webrtc');
+      } else {
+        termEl.style.display = 'flex';
+        ideEl.style.display = 'none';
+        btnTerm.classList.add('active');
+        btnIde.classList.remove('active');
+        termInput.focus();
+      }
+    }
+
+    function loadIdeFile(fileKey) {
+      const data = IDE_FILES[fileKey];
+      if (!data) return;
+
+      document.querySelectorAll('.tree-file').forEach(f => f.classList.remove('active'));
+      const activeFileEl = Array.from(document.querySelectorAll('.tree-file')).find(f => f.textContent.includes(data.title));
+      if (activeFileEl) activeFileEl.classList.add('active');
+
+      document.getElementById('currentEditorTab').textContent = data.title;
+
+      const lines = data.code.split('\n');
+      const container = document.getElementById('editorCodeContent');
+      container.innerHTML = lines.map((line, idx) => `
+        <div class="code-line">
+          <span class="line-no">${idx + 1}</span>
+          <span class="line-text">${escapeHtml(line)}</span>
+        </div>
+      `).join('');
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       8. THEME & DISPLAY TOGGLES
+       ───────────────────────────────────────────────────────────────── */
+    function changeTheme(themeName) {
+      document.body.setAttribute('data-theme', themeName);
+      const select = document.getElementById('themeSelect');
+      if (select) select.value = themeName;
+    }
+
+    function toggleCRT() {
+      document.body.classList.toggle('crt-enabled');
+      const btn = document.getElementById('crtToggleBtn');
+      if (document.body.classList.contains('crt-enabled')) {
+        btn.style.borderColor = 'var(--primary)';
+        btn.style.color = 'var(--primary)';
+      } else {
+        btn.style.borderColor = 'var(--surface-border)';
+        btn.style.color = 'var(--text-muted)';
+      }
+    }
+
+    let matrixActive = true;
+    let matrixInterval = null;
+
+    function toggleMatrix() {
+      const canvas = document.getElementById('matrixCanvas');
+      matrixActive = !matrixActive;
+      if (matrixActive) {
+        canvas.style.display = 'block';
+        initMatrixRain();
+      } else {
+        canvas.style.display = 'none';
+        clearInterval(matrixInterval);
+      }
+    }
+
+    function initMatrixRain() {
+      const canvas = document.getElementById('matrixCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const katakana = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZTELECOMWEBRTCSIPJAVA';
+      const fontSize = 14;
+      const columns = Math.floor(canvas.width / fontSize);
+      const drops = Array(columns).fill(1);
+
+      if (matrixInterval) clearInterval(matrixInterval);
+
+      matrixInterval = setInterval(() => {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#00ff66';
+        ctx.font = `${fontSize}px monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = katakana.charAt(Math.floor(Math.random() * katakana.length));
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }, 35);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       9. GUIDED RECRUITER TOUR
+       ───────────────────────────────────────────────────────────────── */
+    const TOUR_STEPS = [
+      {
+        title: "⚡ Overview: Systems Engineer @ TCS",
+        text: "Anurag Kumar is a Systems Engineer at Tata Consultancy Services with 4+ years of experience. He is currently onsite in Copenhagen, Denmark at TDC Brands, delivering full-stack telephony systems.",
+        action: () => executeCommand('whoami')
+      },
+      {
+        title: "🛠️ Specialized Technical Stack",
+        text: "Specialized in Java 17 LTS, Spring Boot 3, React 18, TypeScript, client-side WebRTC softphones with E2E signaling flow mastery, sending events to Kafka from Java, and querying Elasticsearch using Java search builders.",
+        action: () => executeCommand('skills')
+      },
+      {
+        title: "📈 Proven Engineering Career",
+        text: "From automotive internal tooling to zero-downtime MongoDB to Oracle database migrations, to Copenhagen onsite engineering client-side WebRTC softphones and telephony automation platforms.",
+        action: () => executeCommand('experience')
+      },
+      {
+        title: "📞 Interactive Client Softphone Simulator",
+        text: "Explore the live interactive client softphone! Place simulated calls, view real-time client SIP signaling traces, and monitor live audio waveforms and QoS metrics.",
+        action: () => executeCommand('softphone')
+      },
+      {
+        title: "🤝 Direct Contact & Opportunities",
+        text: "Open to discussions for Senior and Lead Full Stack / Systems Engineering roles in Denmark, Europe, and internationally. Connect via email or phone!",
+        action: () => executeCommand('contact')
+      }
+    ];
+
+    let currentTourIdx = 0;
+
+    function startGuidedTour() {
+      currentTourIdx = 0;
+      showTourStep();
+    }
+
+    function showTourStep() {
+      const step = TOUR_STEPS[currentTourIdx];
+      const modal = document.getElementById('tourModal');
+      const title = document.getElementById('tourStepTitle');
+      const text = document.getElementById('tourStepText');
+      const progress = document.getElementById('tourProgress');
+      const nextBtn = document.getElementById('btnTourNext');
+
+      modal.style.display = 'block';
+      title.textContent = step.title;
+      text.textContent = step.text;
+      progress.textContent = `${currentTourIdx + 1} / ${TOUR_STEPS.length}`;
+
+      if (currentTourIdx === TOUR_STEPS.length - 1) {
+        nextBtn.textContent = 'Finish Tour ✓';
+      } else {
+        nextBtn.textContent = 'Next ➔';
+      }
+
+      step.action();
+    }
+
+    function nextTourStep() {
+      currentTourIdx++;
+      if (currentTourIdx >= TOUR_STEPS.length) {
+        stopGuidedTour();
+      } else {
+        showTourStep();
+      }
+    }
+
+    function stopGuidedTour() {
+      document.getElementById('tourModal').style.display = 'none';
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       10. RESUME MODAL & COPENHAGEN CLOCK
+       ───────────────────────────────────────────────────────────────── */
+    function openResumeModal() {
+      document.getElementById('resumeModal').style.display = 'flex';
+    }
+
+    function closeResumeModal() {
+      document.getElementById('resumeModal').style.display = 'none';
+    }
+
+    // Renders the resume DOM (always the fixed white/black/blue formal layout,
+    // regardless of the site's active theme) straight into a downloaded PDF file.
+    function downloadResumePDF(btn) {
+      const el = document.getElementById('resumePaperBody');
+      const originalLabel = btn ? btn.innerHTML : null;
+      if (btn) { btn.innerHTML = '⏳ Preparing PDF…'; btn.disabled = true; }
+
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: 'Anurag_Kumar_Resume.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'] }
+      };
+
+      html2pdf().set(opt).from(el).save().then(() => {
+        if (btn) { btn.innerHTML = originalLabel; btn.disabled = false; }
+      }).catch((err) => {
+        console.error('Resume PDF export failed, falling back to print dialog.', err);
+        if (btn) { btn.innerHTML = originalLabel; btn.disabled = false; }
+        window.print();
+      });
+    }
+
+    function updateCphClock() {
+      const now = new Date();
+      const options = { timeZone: 'Europe/Copenhagen', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      const clockEl = document.getElementById('cphClock');
+      if (clockEl) {
+        clockEl.textContent = now.toLocaleTimeString('en-GB', options) + ' CEST';
+      }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       11. INITIALIZATION ON PAGE LOAD
+       ───────────────────────────────────────────────────────────────── */
+    window.addEventListener('DOMContentLoaded', () => {
+      termContent.innerHTML = renderBootBanner();
+      executeCommand('whoami');
+      updateCphClock();
+      setInterval(updateCphClock, 1000);
+      setTimeout(() => termInput.focus(), 300);
+
+      document.getElementById('matrixCanvas').style.display = 'block';
+      initMatrixRain();
+      window.addEventListener('resize', () => {
+        if (matrixActive) initMatrixRain();
+      });
+
+      document.addEventListener('touchstart', initAudio, { once: true });
+      document.addEventListener('click', initAudio, { once: true });
+    });
+  </script>
+</body>
+</html>
