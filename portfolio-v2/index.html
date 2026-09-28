@@ -2129,9 +2129,10 @@
               <ul>
                 <li>Build and maintain a <b>WebRTC softphone</b> from scratch using React, so users can make and receive calls through Cisco BroadWorks without needing a separate desktop app.</li>
                 <li>Add call features like 3-way conferencing, hold/mute, and call transfer by studying BroadWorks' documentation and working through tricky edge cases.</li>
-                <li>Build a <b>one-click node upgrade portal</b> to manage BroadWorks server batches — add hostnames, then create, edit, or delete batches to run software upgrades, downgrades, OS upgrades, localization, sanitization, and on-demand tests across ADP, AS, XSP, MS, NS, MDS, and MFM nodes on a monthly cycle.</li>
+                <li>Build a <b>one-click node upgrade portal</b> to manage BroadWorks server batches — add hostnames, then create, edit, or delete batches to run software upgrades, downgrades, OS upgrades, localization, sanitization, and on-demand tests across ADP, AS, XSP, MS, NS, NDS, and NFM nodes on a monthly cycle.</li>
                 <li>Download official software binaries (such as R-4 and R-26 releases) from Cisco's BroadWorks site, orchestrate every batch operation through GitLab CI/CD pipelines running Ansible playbooks, and show live logs and batch health status with automated test cases run directly against BroadWorks servers.</li>
-                <li>Build <b>Telephony QoS Automation Robots</b> — a Java tool that runs test calls on the live system and sends results to Kafka and Elasticsearch, so quality issues get caught early.</li>
+                <li>Build <b>Telephony QoS Automation Robots</b> that run SIPp call scenarios (one test suite per cluster) to check Feature Access Codes and the MCA/Voice Portal service on vXSP, supporting VoLTE QoS monitoring across BroadWorks AS clusters.</li>
+                <li>Query call pass/fail data from Elasticsearch logs and publish results to Kafka, and send alerts by email or SNMP trap — with failure percentage and reason — whenever a service isn't running correctly.</li>
                 <li>Work as the only developer on-site with TDC Brands' team in Copenhagen, turning their requirements directly into finished features.</li>
               </ul>
             </div>
